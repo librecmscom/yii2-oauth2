@@ -1,0 +1,27 @@
+{
+    "name": "yuncms/yii2-oauth2",
+    "description": "The Oauth2 Server extension for the Yii2 framework",
+    "keywords": ["yii2", "oauth2", "oauth2-server"],
+    "homepage": "https://github.com/borodulin/yii2-oauth2-server",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/borodulin/yii2-oauth2-server/issues",
+        "source": "https://github.com/borodulin/yii2-oauth2-server"
+    },
+    "authors": [
+        {
+            "name": "Andrey Borodulin",
+            "email": "borodulin@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": ">=2.0.4",
+        "jakeasmith/http_build_url": "*"
+    },
+    "autoload": {
+        "psr-4": {
+        	"yuncms\\oauth2\\": ""
+        }
+    }
+}
