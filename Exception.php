@@ -38,7 +38,6 @@ class Exception extends UserException
      * Constructor.
      * @param string $error_description (optional)
      * @param string $error A single error code
-     * @param string $name error name
      */
     public function __construct($error_description = null, $error = self::INVALID_REQUEST)
     {

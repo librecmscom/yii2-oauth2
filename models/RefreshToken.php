@@ -5,9 +5,12 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace conquer\oauth2\models;
+namespace yuncms\oauth2\models;
 
-use conquer\oauth2\Exception;
+use Yii;
+use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
+use yuncms\oauth2\Exception;
 
 /**
  * This is the model class for table "{{%oauth2_refresh_token}}".
@@ -21,7 +24,7 @@ use conquer\oauth2\Exception;
  * @property Client $client
  * @property User $user
  */
-class RefreshToken extends \yii\db\ActiveRecord
+class RefreshToken extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -63,19 +66,19 @@ class RefreshToken extends \yii\db\ActiveRecord
      *
      * @param array $attributes
      * @throws Exception
-     * @return \conquer\oauth2\models\RefreshToken
+     * @return \yuncms\oauth2\models\RefreshToken
      */
     public static function createRefreshToken(array $attributes)
     {
         static::deleteAll(['<', 'expires', time()]);
 
-        $attributes['refresh_token'] = \Yii::$app->security->generateRandomString(40);
+        $attributes['refresh_token'] = Yii::$app->security->generateRandomString(40);
         $refreshToken = new static($attributes);
 
         if ($refreshToken->save()) {
             return $refreshToken;
         } else {
-            \Yii::error(__CLASS__ . ' validation error:' . VarDumper::dumpAsString($refreshToken->errors));
+            Yii::error(__CLASS__ . ' validation error:' . VarDumper::dumpAsString($refreshToken->errors));
         }
         throw new Exception('Unable to create refresh token', Exception::SERVER_ERROR);
     }
@@ -93,6 +96,6 @@ class RefreshToken extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
     }
 }

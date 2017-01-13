@@ -92,7 +92,7 @@ class RefreshToken extends BaseModel
 
     /**
      *
-     * @return \conquer\oauth2\models\RefreshToken
+     * @return \yuncms\oauth2\models\RefreshToken
      */
     public function getRefreshToken()
     {

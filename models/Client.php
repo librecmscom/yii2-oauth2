@@ -5,9 +5,10 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace conquer\oauth2\models;
+namespace yuncms\oauth2\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "oauth2_client".
@@ -24,7 +25,7 @@ use Yii;
  * @property AuthorizationCode[] $authorizationCodes
  * @property RefreshToken[] $refreshTokens
  */
-class Client extends \yii\db\ActiveRecord
+class Client extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -54,8 +55,8 @@ class Client extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            \yii\behaviors\TimestampBehavior::className(),
-            \yii\behaviors\BlameableBehavior::className(),
+            'yii\behaviors\TimestampBehavior',
+            'yii\behaviors\BlameableBehavior'
         ];
     }
 

@@ -77,7 +77,7 @@ abstract class BaseModel extends Model
     {
         static $request;
         if (is_null($request)) {
-            $request = \Yii::$app->request;
+            $request = Yii::$app->request;
         }
         if ($header && ($result = $request->headers->get($header))) {
             return $result;
@@ -88,7 +88,7 @@ abstract class BaseModel extends Model
 
     /**
      *
-     * @return \conquer\oauth2\models\Client
+     * @return \yuncms\oauth2\models\Client
      */
     public function getClient()
     {

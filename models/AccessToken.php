@@ -95,9 +95,6 @@ class AccessToken extends ActiveRecord
      */
     public function getUser()
     {
-        $identity = isset(Yii::$app->user->identity) ? Yii::$app->user->identity : null;
-        if ($identity instanceof ActiveRecord) {
-            return $this->hasOne(get_class($identity), ['user_id' => $identity->primaryKey()]);
-        }
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
     }
 }
