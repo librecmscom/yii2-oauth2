@@ -1,10 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\AdminForm */
+/* @var $model yuncms\oauth2\models\Client */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -15,16 +14,14 @@ use yii\jui\DatePicker;
     'enableClientValidation' => false,
     'validateOnBlur' => false,
 ]); ?>
-
 <?= $form->field($model, 'name') ?>
-<?= $form->field($model, 'position') ?>
-<?= $form->field($model, 'city'); ?>
-<?= $form->field($model, 'start_at')->widget(DatePicker::classname(), ['dateFormat' => 'yyyy-MM', 'options' => ['class' => 'form-control'], 'clientOptions' => ['changeMonth' => true, 'changeYear' => true]]) ?>
-<?= $form->field($model, 'end_at')->widget(DatePicker::classname(), ['dateFormat' => 'yyyy-MM', 'options' => ['class' => 'form-control'], 'clientOptions' => ['changeMonth' => true, 'changeYear' => true]]) ?>
-<?= $form->field($model, 'description')->textarea() ?>
+<?= $form->field($model, 'provider') ?>
+<?= $form->field($model, 'icp') ?>
+<?= $form->field($model, 'redirect_uri'); ?>
+
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('oauth2', 'Create') : Yii::t('oauth2', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
 <?php ActiveForm::end(); ?>

@@ -13,7 +13,6 @@ use yuncms\oauth2\models\AccessToken;
 
 /**
  * @link https://tools.ietf.org/html/rfc6749#section-4.2.1
- * @author Andrey Borodulin
  */
 class Implicit extends BaseModel
 {

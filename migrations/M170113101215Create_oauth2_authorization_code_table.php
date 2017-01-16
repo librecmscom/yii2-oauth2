@@ -27,7 +27,7 @@ class M170113101215Create_oauth2_authorization_code_table extends Migration
 
         $this->createIndex('ix_authorization_code_expires', '{{%oauth2_authorization_code}}', 'expires');
 
-        $this->addforeignkey('fk_authorization_code_oauth2_client_client_id', '{{%oauth2_authorization_code}}', 'client_id', '{{%oauth2_client}}', 'client_id', 'CASCADE', 'CASCADE');
+        $this->addforeignkey('fk_authorization_code_oauth2_client_id', '{{%oauth2_authorization_code}}', 'client_id', '{{%oauth2_client}}', 'client_id', 'CASCADE', 'CASCADE');
 
     }
 

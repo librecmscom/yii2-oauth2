@@ -7,14 +7,13 @@
 
 namespace yuncms\oauth2\granttypes;
 
+use Yii;
 use yuncms\oauth2\BaseModel;
 
-/**
- *
- * @author Andrey Borodulin
- */
+
 class UserCredentials extends BaseModel
 {
-    public function getResponseData(){
+    public function getResponseData()
+    {
     }
 }

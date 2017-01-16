@@ -22,7 +22,7 @@ use yuncms\oauth2\Exception;
  * @property integer $expires
  * @property string $scope
  *
- * @property Client $client
+ * @property App $client
  * @property User $user
  */
 class AuthorizationCode extends ActiveRecord
@@ -42,10 +42,9 @@ class AuthorizationCode extends ActiveRecord
     {
         return [
             [['authorization_code', 'client_id', 'user_id', 'expires'], 'required'],
-            [['user_id', 'expires'], 'integer'],
+            [['client_id','user_id', 'expires'], 'integer'],
             [['scope'], 'string'],
             [['authorization_code'], 'string', 'max' => 40],
-            [['client_id'], 'string', 'max' => 80],
             [['redirect_uri'], 'url'],
         ];
     }
@@ -57,7 +56,7 @@ class AuthorizationCode extends ActiveRecord
     {
         return [
             'authorization_code' => 'Authorization Code',
-            'client_id' => 'Client ID',
+            'app_id' => 'Client ID',
             'user_id' => 'User ID',
             'redirect_uri' => 'Redirect Uri',
             'expires' => 'Expires',
@@ -99,6 +98,6 @@ class AuthorizationCode extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Yii::$app->user->identityClass, ['user_id' => 'user_id']);
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
     }
 }

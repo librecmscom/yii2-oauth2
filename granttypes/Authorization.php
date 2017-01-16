@@ -16,7 +16,6 @@ use yuncms\oauth2\models\AuthorizationCode;
 
 /**
  * @link https://tools.ietf.org/html/rfc6749#section-4.1.3
- * @author Andrey Borodulin
  */
 class Authorization extends BaseModel
 {
@@ -44,8 +43,7 @@ class Authorization extends BaseModel
     public $redirect_uri;
 
     /**
-     *
-     * @var string
+     * @var string 客户端ID
      */
     public $client_id;
 
@@ -72,7 +70,6 @@ class Authorization extends BaseModel
     public function validateRedirect_uri($attribute, $params)
     {
         $authCode = $this->getAuthCode();
-
         if ($authCode->redirect_uri && (strcasecmp($this->$attribute, $authCode->redirect_uri) !== 0)) {
             $this->errorServer('The redirect URI provided does not match', Exception::REDIRECT_URI_MISMATCH);
         }
@@ -97,7 +94,7 @@ class Authorization extends BaseModel
             'scope' => $authCode->scope,
         ]);
         /**
-         * The client MUST NOT use the authorization code more than once.
+         * 客户端不得多次使用授权码。
          * @link https://tools.ietf.org/html/rfc6749#section-4.1.2
          */
         $authCode->delete();
@@ -111,13 +108,17 @@ class Authorization extends BaseModel
         ];
     }
 
+    /**
+     * @param string $attribute
+     * @param array $params
+     */
     public function validateCode($attribute, $params)
     {
         $this->getAuthCode();
     }
 
     /**
-     *
+     * 获取授权代码
      * @return \yuncms\oauth2\models\AuthorizationCode
      */
     public function getAuthCode()

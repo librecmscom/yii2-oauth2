@@ -21,7 +21,7 @@ use yuncms\oauth2\Exception;
  * @property integer $expires
  * @property string $scope
  *
- * @property Client $client
+ * @property App $client
  * @property User $user
  */
 class AccessToken extends ActiveRecord
@@ -41,10 +41,9 @@ class AccessToken extends ActiveRecord
     {
         return [
             [['access_token', 'client_id', 'user_id', 'expires'], 'required'],
-            [['user_id', 'expires'], 'integer'],
+            [['client_id','user_id', 'expires'], 'integer'],
             [['scope'], 'string'],
             [['access_token'], 'string', 'max' => 40],
-            [['client_id'], 'string', 'max' => 80]
         ];
     }
 
@@ -55,7 +54,7 @@ class AccessToken extends ActiveRecord
     {
         return [
             'access_token' => 'Access Token',
-            'client_id' => 'Client ID',
+            'app_id' => 'App ID',
             'user_id' => 'User ID',
             'expires' => 'Expires',
             'scope' => 'Scopes',

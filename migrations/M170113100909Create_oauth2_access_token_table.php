@@ -23,7 +23,7 @@ class M170113100909Create_oauth2_access_token_table extends Migration
         ], $tableOptions);
         $this->addPrimaryKey('pk', '{{%oauth2_access_token}}', 'access_token');
         $this->createIndex('ix_access_token_expires', '{{%oauth2_access_token}}', 'expires');
-        $this->addforeignkey('fk_access_token_oauth2_client_client_id', '{{%oauth2_access_token}}', 'client_id', '{{%oauth2_client}}', 'client_id', 'CASCADE', 'CASCADE');
+        $this->addforeignkey('fk_access_token_oauth2_client_id', '{{%oauth2_access_token}}', 'client_id', '{{%oauth2_client}}', 'client_id', 'CASCADE', 'CASCADE');
     }
 
     public function down()

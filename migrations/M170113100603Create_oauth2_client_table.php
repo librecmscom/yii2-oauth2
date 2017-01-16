@@ -17,15 +17,19 @@ class M170113100603Create_oauth2_client_table extends Migration
         $this->createTable('{{%oauth2_client}}', [
             'client_id' => $this->primaryKey(),
             'client_secret' => $this->string(80)->notNull(),
-            'user_id'=>$this->integer()->notNull(),
-            'redirect_uri' => $this->text()->notNull(),
+            'user_id' => $this->integer()->notNull(),
+            'redirect_uri' => $this->text()->notNull()->comment('回调URL'),
             'grant_type' => $this->text(),
             'scope' => $this->text(),
+            'name' => $this->string()->comment('客户端名称'),
+            'domain' => $this->string()->comment('域名'),
+            'provider' => $this->string()->comment('提供方'),
+            'icp' => $this->string()->comment('ICP备案'),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
             'created_by' => $this->integer()->notNull(),
             'updated_by' => $this->integer()->notNull(),
-        ],$tableOptions);
+        ], $tableOptions);
         $this->addforeignkey('fk_oauth2_client_user_id', '{{%oauth2_client}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
     }
 

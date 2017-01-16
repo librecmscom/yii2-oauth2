@@ -21,7 +21,7 @@ use yuncms\oauth2\Exception;
  * @property integer $expires
  * @property string $scope
  *
- * @property Client $client
+ * @property App $client
  * @property User $user
  */
 class RefreshToken extends ActiveRecord
@@ -41,10 +41,9 @@ class RefreshToken extends ActiveRecord
     {
         return [
             [['refresh_token', 'client_id', 'user_id', 'expires'], 'required'],
-            [['user_id', 'expires'], 'integer'],
+            [['client_id','user_id', 'expires'], 'integer'],
             [['scope'], 'string'],
             [['refresh_token'], 'string', 'max' => 40],
-            [['client_id'], 'string', 'max' => 80]
         ];
     }
 

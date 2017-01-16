@@ -3,21 +3,20 @@
 /*
  * @var yii\web\View $this
  */
-$this->title = Yii::t('user', 'Update Career: ') . ' ' . $model->name;
+$this->title = Yii::t('oauth2', 'Update App: ') . ' ' . $model->name;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('user', 'Careers'),
+    'label' => Yii::t('oauth2', 'Apps'),
     'url' => ['index']
 ];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('user', 'Update');
+$this->params['breadcrumbs'][] = ['label' => $model->client_id, 'url' => ['view', 'id' => $model->client_id]];
+$this->params['breadcrumbs'][] = Yii::t('oauth2', 'Update');
 ?>
-
 <div class="row">
     <div class="col-md-2">
-        <?= $this->render('/setting/_menu') ?>
+        <?= $this->render('@yuncms/user/views/setting/_menu') ?>
     </div>
     <div class="col-md-10">
-        <h2 class="h3 profile-title"><?= Yii::t('user', 'Update Career: ') . ' ' . $model->name ?></h2>
+        <h2 class="h3 profile-title"><?= Yii::t('oauth2', 'Update App: ') . ' ' . $model->name ?></h2>
         <div class="row">
             <div class="col-md-12">
                 <?= $this->render('_form', ['model' => $model]) ?>

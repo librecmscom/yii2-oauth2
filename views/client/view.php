@@ -7,29 +7,29 @@ use yii\widgets\DetailView;
  * @var yii\web\View $this
  */
 
-$this->title = Yii::t('user', 'Show Career: ') . ' ' . $model->id;
+$this->title = Yii::t('oauth2', 'Show App: ') . ' ' . $model->id;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('user', 'Careers'),
+    'label' => Yii::t('oauth2', 'Apps'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('user', 'Show');
+$this->params['breadcrumbs'][] = Yii::t('oauth2', 'Show');
 ?>
 
 <div class="row">
     <div class="col-md-2">
-        <?= $this->render('/setting/_menu') ?>
+        <?= $this->render('@yuncms/user/views/setting/_menu') ?>
     </div>
     <div class="col-md-10">
-        <h2 class="h3 profile-title"><?= Yii::t('user', 'Show Career: ') . ' ' . $model->id ?></h2>
+        <h2 class="h3 profile-title"><?= Yii::t('oauth2', 'Show App: ') . ' ' . $model->id ?></h2>
         <div class="row">
             <div class="col-md-12">
         <p>
-            <?= Html::a(Yii::t('user', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a(Yii::t('user', 'Delete'), ['delete', 'id' => $model->id], [
+            <?= Html::a(Yii::t('oauth2', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('oauth2', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                    'confirm' => Yii::t('oauth2', 'Are you sure you want to delete this app?'),
                     'method' => 'post',
                 ],
             ]) ?>

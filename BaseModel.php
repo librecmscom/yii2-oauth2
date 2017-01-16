@@ -119,7 +119,17 @@ abstract class BaseModel extends Model
     {
         if (!empty($this->$attribute)) {
             $clientRedirectUri = $this->getClient()->redirect_uri;
-            if (strncasecmp($this->$attribute, $clientRedirectUri, strlen($clientRedirectUri)) !== 0) {
+            $clientRedirectUris = explode(';', $clientRedirectUri);
+            $isTrue = false;
+            if ($clientRedirectUris) {
+                foreach ($clientRedirectUris as $clientRedirectUri){
+                    if (strncasecmp($this->$attribute, $clientRedirectUri, strlen($clientRedirectUri)) === 0) {
+                        $isTrue = true;
+                        continue;
+                    }
+                }
+            }
+            if (!$isTrue) {
                 $this->errorServer('The redirect URI provided is missing or does not match', Exception::REDIRECT_URI_MISMATCH);
             }
         }

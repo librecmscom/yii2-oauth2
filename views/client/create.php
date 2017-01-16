@@ -1,14 +1,10 @@
 <?php
-
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 /*
  * @var yii\web\View $this
  */
-$this->title = Yii::t('user', 'Create Access Key');
+$this->title = Yii::t('oauth2', 'Create App');
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('user', 'Access Keys'),
+    'label' => Yii::t('oauth2', 'Apps'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;
@@ -17,20 +13,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="row">
     <div class="col-md-2">
-        <?= $this->render('/setting/_menu') ?>
+        <?= $this->render('@yuncms/user/views/setting/_menu') ?>
     </div>
     <div class="col-md-10">
-        <?php $form = ActiveForm::begin([
-            'enableClientValidation' => true,
-        ]); ?>
-
-        <?= $form->field($model, 'type') ?>
-
-        <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <h2 class="h3 profile-title"><?= Yii::t('oauth2', 'Create App') ?></h2>
+        <div class="row">
+            <div class="col-md-12">
+                <?= $this->render('_form', ['model' => $model]) ?>
+            </div>
         </div>
-
-        <?php ActiveForm::end(); ?>
-
     </div>
 </div>

@@ -26,7 +26,7 @@ class M170113101204Create_oauth2_refresh_token_table extends Migration
 
         $this->createIndex('ix_refresh_token_expires', '{{%oauth2_refresh_token}}', 'expires');
 
-        $this->addforeignkey('fk_refresh_token_oauth2_client_client_id', '{{%oauth2_refresh_token}}', 'client_id', '{{%oauth2_client}}', 'client_id', 'CASCADE', 'CASCADE');
+        $this->addforeignkey('fk_refresh_token_oauth2_client_id', '{{%oauth2_refresh_token}}', 'client_id', '{{%oauth2_client}}', 'client_id', 'CASCADE', 'CASCADE');
 
     }
 
