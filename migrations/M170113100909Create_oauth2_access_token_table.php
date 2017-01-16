@@ -16,7 +16,7 @@ class M170113100909Create_oauth2_access_token_table extends Migration
 
         $this->createTable('{{%oauth2_access_token}}', [
             'access_token' => $this->string(40)->notNull(),
-            'client_id' => $this->string(80)->notNull(),
+            'client_id' => $this->integer()->notNull(),
             'user_id' => $this->integer(),
             'expires' => $this->integer()->notNull(),
             'scope' => $this->text(),

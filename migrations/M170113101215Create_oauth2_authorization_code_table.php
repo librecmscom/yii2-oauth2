@@ -16,7 +16,7 @@ class M170113101215Create_oauth2_authorization_code_table extends Migration
 
         $this->createTable('{{%oauth2_authorization_code}}', [
             'authorization_code' => $this->string(40)->notNull(),
-            'client_id' => $this->string(80)->notNull(),
+            'client_id' => $this->integer()->notNull(),
             'user_id' => $this->integer(),
             'redirect_uri' => $this->text()->notNull(),
             'expires' => $this->integer()->notNull(),

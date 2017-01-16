@@ -11,11 +11,11 @@ class M170113100603Create_oauth2_client_table extends Migration
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB  AUTO_INCREMENT=100000';
         }
 
         $this->createTable('{{%oauth2_client}}', [
-            'client_id' => $this->string(80)->notNull(),
+            'client_id' => $this->primaryKey(),
             'client_secret' => $this->string(80)->notNull(),
             'user_id'=>$this->integer()->notNull(),
             'redirect_uri' => $this->text()->notNull(),

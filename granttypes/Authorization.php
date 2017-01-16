@@ -83,7 +83,7 @@ class Authorization extends BaseModel
     {
         $authCode = $this->getAuthCode();
 
-        $acessToken = AccessToken::createAccessToken([
+        $accessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $authCode->user_id,
             'expires' => $this->accessTokenLifetime + time(),
@@ -103,7 +103,7 @@ class Authorization extends BaseModel
         $authCode->delete();
 
         return [
-            'access_token' => $acessToken->access_token,
+            'access_token' => $accessToken->access_token,
             'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $this->scope,

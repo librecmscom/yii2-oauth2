@@ -41,7 +41,7 @@ class Client extends ActiveRecord
     public function rules()
     {
         return [
-            [['client_id', 'client_secret', 'redirect_uri'], 'required'],
+            [['redirect_uri'], 'required'],
             [['scope'], 'string'],
             [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
             [['client_id', 'client_secret', 'grant_type'], 'string', 'max' => 80],
@@ -66,12 +66,22 @@ class Client extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'client_id' => 'Unique client identifier',
-            'client_secret' => 'Client secret',
-            'redirect_uri' => 'Redirect URI used for Authorization Grant',
-            'grant_type' => 'Space-delimited list of grant types permitted, null = all',
-            'scope' => 'Space-delimited list of approved scopes',
+            'client_id' => Yii::t('oauth2', 'Unique Client Identifier'),
+            'client_secret' => Yii::t('oauth2', 'Client Secret'),
+            'user_id' => Yii::t('oauth2', 'User ID'),
+            'redirect_uri' => Yii::t('oauth2', 'Redirect URI'),
+            'grant_type' => Yii::t('oauth2', 'Space-delimited list of grant types permitted, null = all'),
+            'scope' => Yii::t('oauth2', 'Space-delimited list of approved scopes'),
         ];
+    }
+
+    /**
+     * 一对一关联
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
     }
 
     /**
