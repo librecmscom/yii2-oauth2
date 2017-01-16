@@ -17,6 +17,7 @@ class M170113100603Create_oauth2_client_table extends Migration
         $this->createTable('{{%oauth2_client}}', [
             'client_id' => $this->string(80)->notNull(),
             'client_secret' => $this->string(80)->notNull(),
+            'user_id'=>$this->integer()->notNull(),
             'redirect_uri' => $this->text()->notNull(),
             'grant_type' => $this->text(),
             'scope' => $this->text(),
@@ -26,6 +27,8 @@ class M170113100603Create_oauth2_client_table extends Migration
             'updated_by' => $this->integer()->notNull(),
         ],$tableOptions);
         $this->addPrimaryKey('pk','{{%oauth2_client}}','client_id');
+
+        $this->addforeignkey('fk_oauth2_client_user_id', '{{%oauth2_client}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function down()
