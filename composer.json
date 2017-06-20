@@ -1,27 +1,31 @@
 {
-    "name": "yuncms/yii2-oauth2",
-    "description": "The Oauth2 Server extension for the Yii2 framework",
-    "keywords": ["yii2", "oauth2", "oauth2-server"],
-    "homepage": "https://github.com/borodulin/yii2-oauth2-server",
-    "type": "yii2-extension",
-    "license": "MIT",
-    "support": {
-        "issues": "https://github.com/borodulin/yii2-oauth2-server/issues",
-        "source": "https://github.com/borodulin/yii2-oauth2-server"
-    },
-    "authors": [
-        {
-            "name": "Andrey Borodulin",
-            "email": "borodulin@gmail.com"
-        }
-    ],
-    "require": {
-        "yiisoft/yii2": ">=2.0.4",
-        "league/oauth2-server": "~5.1.0"
-    },
-    "autoload": {
-        "psr-4": {
-        	"yuncms\\oauth2\\": ""
-        }
+  "name": "yuncms/yii2-oauth2",
+  "description": "The Oauth2 Server extension for the Yii2 framework",
+  "keywords": [
+    "yii2",
+    "oauth2",
+    "oauth2-server"
+  ],
+  "homepage": "https://github.com/yuncms/yii2-oauth2",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/yuncms/yii2-oauth2/issues",
+    "source": "https://github.com/yuncms/yii2-oauth2"
+  },
+  "authors": [
+    {
+      "name": "Andrey Borodulin",
+      "email": "borodulin@gmail.com"
     }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0.0",
+    "jakeasmith/http_build_url": "~1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "yuncms\\oauth2\\": ""
+    }
+  }
 }
