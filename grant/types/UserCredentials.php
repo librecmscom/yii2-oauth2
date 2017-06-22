@@ -32,6 +32,7 @@ use yuncms\oauth2\OAuth2IdentityInterface;
  */
 class UserCredentials extends BaseModel
 {
+    /** @var  \yuncms\user\models\User */
     private $_user;
 
     /**
@@ -140,6 +141,7 @@ class UserCredentials extends BaseModel
      */
     protected function getUser()
     {
+        /** @var \yuncms\user\models\User $identityClass */
         $identityClass = Yii::$app->user->identityClass;
 
         $identityObject = Yii::createObject($identityClass);

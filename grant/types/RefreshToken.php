@@ -24,11 +24,13 @@ class RefreshToken extends BaseModel
      * @var string
      */
     public $grant_type;
+
     /**
      * The refresh token issued to the client.
      * @var string
      */
     public $refresh_token;
+
     /**
      * The scope of the access request as described by Section 3.3.
      * @var string
