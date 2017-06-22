@@ -7,6 +7,7 @@
 
 namespace yuncms\oauth2\grant\types;
 
+use Yii;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\BaseModel;
 
@@ -69,7 +70,7 @@ class RefreshToken extends BaseModel
 
         $refreshToken->delete();
 
-        $refreshToken = \conquer\oauth2\models\RefreshToken::createRefreshToken([
+        $refreshToken = \yuncms\oauth2\models\RefreshToken::createRefreshToken([
             'client_id' => $this->client_id,
             'user_id' => $refreshToken->user_id,
             'expires' => $this->refreshTokenLifetime + time(),
@@ -92,16 +93,16 @@ class RefreshToken extends BaseModel
 
     /**
      *
-     * @return \conquer\oauth2\models\RefreshToken
+     * @return \yuncms\oauth2\models\RefreshToken
      */
     public function getRefreshToken()
     {
         if (is_null($this->_refreshToken)) {
             if (empty($this->refresh_token)) {
-                $this->errorServer('The request is missing "refresh_token" parameter');
+                $this->errorServer(Yii::t('oauth2', 'The request is missing "refresh_token" parameter'));
             }
-            if (!$this->_refreshToken = \conquer\oauth2\models\RefreshToken::findOne(['refresh_token' => $this->refresh_token])) {
-                $this->errorServer('The Refresh Token is invalid');
+            if (!$this->_refreshToken = \yuncms\oauth2\models\RefreshToken::findOne(['refresh_token' => $this->refresh_token])) {
+                $this->errorServer(Yii::t('oauth2', 'The Refresh Token is invalid'));
             }
         }
         return $this->_refreshToken;

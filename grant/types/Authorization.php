@@ -7,6 +7,7 @@
 
 namespace yuncms\oauth2\grant\types;
 
+use Yii;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
 use yuncms\oauth2\models\AuthorizationCode;
@@ -73,7 +74,7 @@ class Authorization extends BaseModel
         $authCode = $this->getAuthCode();
 
         if ($authCode->redirect_uri && (strcasecmp($this->$attribute, $authCode->redirect_uri) !== 0)) {
-            $this->errorServer('The redirect URI provided does not match', Exception::REDIRECT_URI_MISMATCH);
+            $this->errorServer(Yii::t('oauth2', 'The redirect URI provided does not match'), Exception::REDIRECT_URI_MISMATCH);
         }
         parent::validateRedirect_uri($attribute, $params);
     }
@@ -117,16 +118,16 @@ class Authorization extends BaseModel
 
     /**
      *
-     * @return \conquer\oauth2\models\AuthorizationCode
+     * @return \yuncms\oauth2\models\AuthorizationCode
      */
     public function getAuthCode()
     {
         if (is_null($this->_authCode)) {
             if (empty($this->code)) {
-                $this->errorRedirect('Authorization code is missing.', Exception::INVALID_REQUEST);
+                $this->errorRedirect(Yii::t('oauth2', 'Authorization code is missing.'), Exception::INVALID_REQUEST);
             }
             if (!$this->_authCode = AuthorizationCode::findOne(['authorization_code' => $this->code])) {
-                $this->errorRedirect('The authorization code is not found or has been expired.', Exception::INVALID_CLIENT);
+                $this->errorRedirect(Yii::t('oauth2', 'The authorization code is not found or has been expired.'), Exception::INVALID_CLIENT);
             }
         }
         return $this->_authCode;

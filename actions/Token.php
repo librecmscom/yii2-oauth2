@@ -28,9 +28,9 @@ class Token extends Action
     public $grantTypes = [
         'authorization_code' => 'yuncms\oauth2\grant\types\Authorization',
         'refresh_token' => 'yuncms\oauth2\grant\types\RefreshToken',
-//         'client_credentials' => 'conquer\oauth2\granttypes\ClientCredentials',
-//         'password' => 'conquer\oauth2\granttypes\UserCredentials',
-//         'urn:ietf:params:oauth:grant-type:jwt-bearer' => 'conquer\oauth2\granttypes\JwtBearer',
+//         'client_credentials' => 'yuncms\oauth2\grant\types\ClientCredentials',
+        'password' => 'yuncms\oauth2\grant\types\UserCredentials',
+//         'urn:ietf:params:oauth:grant-type:jwt-bearer' => 'yuncms\oauth2\grant\types\JwtBearer',
     ];
 
     public function init()
@@ -42,16 +42,14 @@ class Token extends Action
     public function run()
     {
         if (!$grantType = BaseModel::getRequestValue('grant_type')) {
-            throw new Exception('The grant type was not specified in the request');
+            throw new Exception(Yii::t('oauth2', 'The grant type was not specified in the request'));
         }
         if (isset($this->grantTypes[$grantType])) {
             $grantModel = Yii::createObject($this->grantTypes[$grantType]);
         } else {
-            throw new Exception("An unsupported grant type was requested", Exception::UNSUPPORTED_GRANT_TYPE);
+            throw new Exception(Yii::t('oauth2', "An unsupported grant type was requested"), Exception::UNSUPPORTED_GRANT_TYPE);
         }
-
         $grantModel->validate();
-
         Yii::$app->response->data = $grantModel->getResponseData();
     }
 }
