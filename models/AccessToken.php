@@ -11,7 +11,6 @@ use Yii;
 use yii\helpers\VarDumper;
 use yii\db\ActiveRecord;
 use yuncms\oauth2\Exception;
-
 /**
  * This is the model class for table "oauth_access_token".
  *
@@ -21,7 +20,7 @@ use yuncms\oauth2\Exception;
  * @property integer $expires
  * @property string $scope
  *
- * @property App $client
+ * @property Client $client
  * @property User $user
  */
 class AccessToken extends ActiveRecord
@@ -41,9 +40,10 @@ class AccessToken extends ActiveRecord
     {
         return [
             [['access_token', 'client_id', 'user_id', 'expires'], 'required'],
-            [['client_id','user_id', 'expires'], 'integer'],
+            [['user_id', 'expires'], 'integer'],
             [['scope'], 'string'],
             [['access_token'], 'string', 'max' => 40],
+            [['client_id'], 'string', 'max' => 80]
         ];
     }
 
@@ -53,11 +53,11 @@ class AccessToken extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'access_token' => 'Access Token',
-            'app_id' => 'App ID',
-            'user_id' => 'User ID',
-            'expires' => 'Expires',
-            'scope' => 'Scopes',
+            'access_token' => Yii::t('oauth2','Access Token'),
+            'client_id' => Yii::t('oauth2','Client ID'),
+            'user_id' => Yii::t('oauth2','User ID'),
+            'expires' => Yii::t('oauth2','Expires'),
+            'scope' => Yii::t('oauth2','Scopes'),
         ];
     }
 
@@ -94,6 +94,9 @@ class AccessToken extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
+        $identity = isset(Yii::$app->user->identity) ? Yii::$app->user->identity : null;
+        if ($identity instanceof ActiveRecord) {
+            return $this->hasOne(get_class($identity), ['user_id' => $identity->primaryKey()]);
+        }
     }
 }

@@ -7,13 +7,8 @@
 
 namespace yuncms\oauth2;
 
-use yii\web\Response;
 use yii\base\UserException;
 
-/**
- * @author Andrey Borodulin
- *
- */
 class Exception extends UserException
 {
     const ACCESS_DENIED = 'access_denied';

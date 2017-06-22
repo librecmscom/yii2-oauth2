@@ -2,12 +2,10 @@
 
 namespace yuncms\oauth2;
 
-use Yii;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yuncms\oauth2\models\Client;
 
-abstract class BaseModel extends Model
+abstract class BaseModel extends \yii\base\Model
 {
     protected $_client;
 
@@ -71,13 +69,13 @@ abstract class BaseModel extends Model
         }
     }
 
-    abstract public function getResponseData();
+    abstract function getResponseData();
 
     public static function getRequestValue($param, $header = null)
     {
         static $request;
         if (is_null($request)) {
-            $request = Yii::$app->request;
+            $request = \Yii::$app->request;
         }
         if ($header && ($result = $request->headers->get($header))) {
             return $result;
@@ -88,7 +86,7 @@ abstract class BaseModel extends Model
 
     /**
      *
-     * @return \yuncms\oauth2\models\Client
+     * @return \conquer\oauth2\models\Client
      */
     public function getClient()
     {
@@ -110,7 +108,7 @@ abstract class BaseModel extends Model
 
     public function validateClient_secret($attribute, $params)
     {
-        if (!Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
+        if (!\Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
             $this->addError($attribute, 'The client credentials are invalid', Exception::UNAUTHORIZED_CLIENT);
         }
     }
@@ -119,17 +117,7 @@ abstract class BaseModel extends Model
     {
         if (!empty($this->$attribute)) {
             $clientRedirectUri = $this->getClient()->redirect_uri;
-            $clientRedirectUris = explode(';', $clientRedirectUri);
-            $isTrue = false;
-            if ($clientRedirectUris) {
-                foreach ($clientRedirectUris as $clientRedirectUri){
-                    if (strncasecmp($this->$attribute, $clientRedirectUri, strlen($clientRedirectUri)) === 0) {
-                        $isTrue = true;
-                        continue;
-                    }
-                }
-            }
-            if (!$isTrue) {
+            if (strncasecmp($this->$attribute, $clientRedirectUri, strlen($clientRedirectUri)) !== 0) {
                 $this->errorServer('The redirect URI provided is missing or does not match', Exception::REDIRECT_URI_MISMATCH);
             }
         }

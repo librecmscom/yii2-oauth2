@@ -7,8 +7,8 @@
 
 namespace yuncms\oauth2\granttypes;
 
-use yuncms\oauth2\BaseModel;
 use yuncms\oauth2\models\AccessToken;
+use yuncms\oauth2\BaseModel;
 
 /**
  *
@@ -60,7 +60,7 @@ class RefreshToken extends BaseModel
     {
         $refreshToken = $this->getRefreshToken();
 
-        $accessToken = AccessToken::createAccessToken([
+        $acessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $refreshToken->user_id,
             'expires' => $this->accessTokenLifetime + time(),
@@ -69,7 +69,7 @@ class RefreshToken extends BaseModel
 
         $refreshToken->delete();
 
-        $refreshToken = \yuncms\oauth2\models\RefreshToken::createRefreshToken([
+        $refreshToken = \conquer\oauth2\models\RefreshToken::createRefreshToken([
             'client_id' => $this->client_id,
             'user_id' => $refreshToken->user_id,
             'expires' => $this->refreshTokenLifetime + time(),
@@ -77,7 +77,7 @@ class RefreshToken extends BaseModel
         ]);
 
         return [
-            'access_token' => $accessToken->access_token,
+            'access_token' => $acessToken->access_token,
             'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $refreshToken->scope,
@@ -92,7 +92,7 @@ class RefreshToken extends BaseModel
 
     /**
      *
-     * @return \yuncms\oauth2\models\RefreshToken
+     * @return \conquer\oauth2\models\RefreshToken
      */
     public function getRefreshToken()
     {
@@ -100,7 +100,7 @@ class RefreshToken extends BaseModel
             if (empty($this->refresh_token)) {
                 $this->errorServer('The request is missing "refresh_token" parameter');
             }
-            if (!$this->_refreshToken = \yuncms\oauth2\models\RefreshToken::findOne(['refresh_token' => $this->refresh_token])) {
+            if (!$this->_refreshToken = \conquer\oauth2\models\RefreshToken::findOne(['refresh_token' => $this->refresh_token])) {
                 $this->errorServer('The Refresh Token is invalid');
             }
         }

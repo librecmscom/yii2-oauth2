@@ -7,9 +7,6 @@
 
 namespace yuncms\oauth2\models;
 
-use Yii;
-use yii\db\ActiveRecord;
-use yii\helpers\VarDumper;
 use yuncms\oauth2\Exception;
 
 /**
@@ -21,10 +18,10 @@ use yuncms\oauth2\Exception;
  * @property integer $expires
  * @property string $scope
  *
- * @property App $client
+ * @property Client $client
  * @property User $user
  */
-class RefreshToken extends ActiveRecord
+class RefreshToken extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -41,9 +38,10 @@ class RefreshToken extends ActiveRecord
     {
         return [
             [['refresh_token', 'client_id', 'user_id', 'expires'], 'required'],
-            [['client_id','user_id', 'expires'], 'integer'],
+            [['user_id', 'expires'], 'integer'],
             [['scope'], 'string'],
             [['refresh_token'], 'string', 'max' => 40],
+            [['client_id'], 'string', 'max' => 80]
         ];
     }
 
@@ -65,19 +63,19 @@ class RefreshToken extends ActiveRecord
      *
      * @param array $attributes
      * @throws Exception
-     * @return \yuncms\oauth2\models\RefreshToken
+     * @return \conquer\oauth2\models\RefreshToken
      */
     public static function createRefreshToken(array $attributes)
     {
         static::deleteAll(['<', 'expires', time()]);
 
-        $attributes['refresh_token'] = Yii::$app->security->generateRandomString(40);
+        $attributes['refresh_token'] = \Yii::$app->security->generateRandomString(40);
         $refreshToken = new static($attributes);
 
         if ($refreshToken->save()) {
             return $refreshToken;
         } else {
-            Yii::error(__CLASS__ . ' validation error:' . VarDumper::dumpAsString($refreshToken->errors));
+            \Yii::error(__CLASS__ . ' validation error:' . VarDumper::dumpAsString($refreshToken->errors));
         }
         throw new Exception('Unable to create refresh token', Exception::SERVER_ERROR);
     }
@@ -95,6 +93,6 @@ class RefreshToken extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
     }
 }

@@ -7,15 +7,15 @@
 
 namespace yuncms\oauth2\granttypes;
 
-use Yii;
-use yuncms\oauth2\Exception;
-use yuncms\oauth2\BaseModel;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
 use yuncms\oauth2\models\AuthorizationCode;
+use yuncms\oauth2\Exception;
+use yuncms\oauth2\BaseModel;
 
 /**
  * @link https://tools.ietf.org/html/rfc6749#section-4.1.3
+ * @author Andrey Borodulin
  */
 class Authorization extends BaseModel
 {
@@ -43,7 +43,8 @@ class Authorization extends BaseModel
     public $redirect_uri;
 
     /**
-     * @var string 客户端ID
+     *
+     * @var string
      */
     public $client_id;
 
@@ -70,6 +71,7 @@ class Authorization extends BaseModel
     public function validateRedirect_uri($attribute, $params)
     {
         $authCode = $this->getAuthCode();
+
         if ($authCode->redirect_uri && (strcasecmp($this->$attribute, $authCode->redirect_uri) !== 0)) {
             $this->errorServer('The redirect URI provided does not match', Exception::REDIRECT_URI_MISMATCH);
         }
@@ -80,7 +82,7 @@ class Authorization extends BaseModel
     {
         $authCode = $this->getAuthCode();
 
-        $accessToken = AccessToken::createAccessToken([
+        $acessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $authCode->user_id,
             'expires' => $this->accessTokenLifetime + time(),
@@ -94,13 +96,13 @@ class Authorization extends BaseModel
             'scope' => $authCode->scope,
         ]);
         /**
-         * 客户端不得多次使用授权码。
+         * The client MUST NOT use the authorization code more than once.
          * @link https://tools.ietf.org/html/rfc6749#section-4.1.2
          */
         $authCode->delete();
 
         return [
-            'access_token' => $accessToken->access_token,
+            'access_token' => $acessToken->access_token,
             'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $this->scope,
@@ -108,18 +110,14 @@ class Authorization extends BaseModel
         ];
     }
 
-    /**
-     * @param string $attribute
-     * @param array $params
-     */
     public function validateCode($attribute, $params)
     {
         $this->getAuthCode();
     }
 
     /**
-     * 获取授权代码
-     * @return \yuncms\oauth2\models\AuthorizationCode
+     *
+     * @return \conquer\oauth2\models\AuthorizationCode
      */
     public function getAuthCode()
     {

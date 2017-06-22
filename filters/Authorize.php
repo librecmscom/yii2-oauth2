@@ -5,24 +5,25 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace yuncms\oauth2;
+namespace yuncms\oauth2\filters;
 
 use Yii;
-use yii\web\Session;
 use yii\base\ActionFilter;
+use yuncms\oauth2\BaseModel;
+use yuncms\oauth2\Exception;
 /**
  *
  * @author Andrey Borodulin
  *
  */
-class AuthorizeFilter extends ActionFilter
+class Authorize extends ActionFilter
 {
 
     private $_responseType;
 
     public $responseTypes = [
-        'token' => 'yuncms\oauth2\responsetypes\Implicit',
-        'code' => 'yuncms\oauth2\responsetypes\Authorization',
+        'token' => 'yuncms\oauth2\response\types\Implicit',
+        'code' => 'yuncms\oauth2\response\types\Authorization',
     ];
 
     /**

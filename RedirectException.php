@@ -8,7 +8,6 @@
 namespace yuncms\oauth2;
 
 use Yii;
-use yii\web\Response;
 
 /**
  *

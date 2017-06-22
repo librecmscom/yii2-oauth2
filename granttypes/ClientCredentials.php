@@ -7,10 +7,11 @@
 
 namespace yuncms\oauth2\granttypes;
 
-use Yii;
 use yuncms\oauth2\BaseModel;
 
-
+/**
+ * @author Andrey Borodulin
+ */
 class ClientCredentials extends BaseModel
 {
 

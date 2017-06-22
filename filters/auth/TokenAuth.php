@@ -7,10 +7,10 @@
 
 namespace yuncms\oauth2;
 
-use Yii;
 use yii\filters\auth\AuthMethod;
 use yuncms\oauth2\Exception;
 use yuncms\oauth2\models\AccessToken;
+
 
 /**
  * TokenAuth is an action filter that supports the authentication method based on the OAuth2 Access Token.
@@ -22,7 +22,7 @@ use yuncms\oauth2\models\AccessToken;
  * {
  *     return [
  *         'tokenAuth' => [
- *             'class' => \yuncms\oauth2\TokenAuth::className(),
+ *             'class' => \yuncms\oauth2\filters\auth\TokenAuth::className(),
  *         ],
  *     ];
  * }
@@ -50,12 +50,16 @@ class TokenAuth extends AuthMethod
     public function authenticate($user, $request, $response)
     {
         $accessToken = $this->getAccessToken();
+
         /* @var $user \yii\web\User */
         $identityClass = is_null($this->identityClass) ? $user->identityClass : $this->identityClass;
+
         $identity = $identityClass::findIdentity($accessToken->user_id);
+
         if (empty($identity)) {
             throw new Exception('User is not found.', Exception::ACCESS_DENIED);
         }
+
         $user->setIdentity($identity);
 
         return $identity;
@@ -86,7 +90,7 @@ class TokenAuth extends AuthMethod
     protected function getAccessToken()
     {
         if (is_null($this->_accessToken)) {
-            $request = Yii::$app->request;
+            $request = \Yii::$app->request;
 
             $authHeader = $request->getHeaders()->get('Authorization');
 

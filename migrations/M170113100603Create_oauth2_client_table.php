@@ -25,10 +25,10 @@ class M170113100603Create_oauth2_client_table extends Migration
             'domain' => $this->string()->comment('域名'),
             'provider' => $this->string()->comment('提供方'),
             'icp' => $this->string()->comment('ICP备案'),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
             'created_by' => $this->integer()->notNull(),
             'updated_by' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->comment('创建时间'),
+            'updated_at' => $this->integer()->comment('更新时间'),
         ], $tableOptions);
         $this->addforeignkey('fk_oauth2_client_user_id', '{{%oauth2_client}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
     }

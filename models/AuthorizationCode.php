@@ -8,9 +8,8 @@
 namespace yuncms\oauth2\models;
 
 use Yii;
-use yii\db\ActiveRecord;
-use yii\helpers\VarDumper;
 use yuncms\oauth2\Exception;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "oauth_authorization_code".
@@ -22,10 +21,10 @@ use yuncms\oauth2\Exception;
  * @property integer $expires
  * @property string $scope
  *
- * @property App $client
+ * @property Client $client
  * @property User $user
  */
-class AuthorizationCode extends ActiveRecord
+class AuthorizationCode extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -42,9 +41,10 @@ class AuthorizationCode extends ActiveRecord
     {
         return [
             [['authorization_code', 'client_id', 'user_id', 'expires'], 'required'],
-            [['client_id','user_id', 'expires'], 'integer'],
+            [['user_id', 'expires'], 'integer'],
             [['scope'], 'string'],
             [['authorization_code'], 'string', 'max' => 40],
+            [['client_id'], 'string', 'max' => 80],
             [['redirect_uri'], 'url'],
         ];
     }
@@ -56,7 +56,7 @@ class AuthorizationCode extends ActiveRecord
     {
         return [
             'authorization_code' => 'Authorization Code',
-            'app_id' => 'Client ID',
+            'client_id' => 'Client ID',
             'user_id' => 'User ID',
             'redirect_uri' => 'Redirect Uri',
             'expires' => 'Expires',
@@ -74,13 +74,13 @@ class AuthorizationCode extends ActiveRecord
     {
         static::deleteAll(['<', 'expires', time()]);
 
-        $params['authorization_code'] = Yii::$app->security->generateRandomString(40);
+        $params['authorization_code'] = \Yii::$app->security->generateRandomString(40);
         $authCode = new static($params);
 
         if ($authCode->save()) {
             return $authCode;
         } else {
-            Yii::error(__CLASS__ . ' validation error: ' . VarDumper::dumpAsString($authCode->errors));
+            \Yii::error(__CLASS__ . ' validation error: ' . VarDumper::dumpAsString($authCode->errors));
         }
         throw new Exception('Unable to create authorization code', Exception::SERVER_ERROR);
     }
@@ -98,6 +98,6 @@ class AuthorizationCode extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
     }
 }
