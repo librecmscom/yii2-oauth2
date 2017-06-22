@@ -26,8 +26,8 @@ class Token extends Action
     public $format = Response::FORMAT_JSON;
 
     public $grantTypes = [
-        'authorization_code' => 'yuncms\oauth2\granttypes\Authorization',
-        'refresh_token' => 'yuncms\oauth2\granttypes\RefreshToken',
+        'authorization_code' => 'yuncms\oauth2\grant\types\Authorization',
+        'refresh_token' => 'yuncms\oauth2\grant\types\RefreshToken',
 //         'client_credentials' => 'conquer\oauth2\granttypes\ClientCredentials',
 //         'password' => 'conquer\oauth2\granttypes\UserCredentials',
 //         'urn:ietf:params:oauth:grant-type:jwt-bearer' => 'conquer\oauth2\granttypes\JwtBearer',

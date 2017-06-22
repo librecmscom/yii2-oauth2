@@ -5,7 +5,7 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace yuncms\oauth2\granttypes;
+namespace yuncms\oauth2\grant\types;
 
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\BaseModel;

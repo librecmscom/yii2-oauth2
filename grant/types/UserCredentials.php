@@ -5,8 +5,9 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace yuncms\oauth2\granttypes;
+namespace yuncms\oauth2\grant\types;
 
+use Yii;
 use yuncms\oauth2\models\AccessToken;
 use yuncms\oauth2\models\RefreshToken;
 use yuncms\oauth2\BaseModel;
@@ -139,9 +140,9 @@ class UserCredentials extends BaseModel
      */
     protected function getUser()
     {
-        $identityClass = \Yii::$app->user->identityClass;
+        $identityClass = Yii::$app->user->identityClass;
 
-        $identityObject = \Yii::createObject($identityClass);
+        $identityObject = Yii::createObject($identityClass);
         if (! $identityObject instanceof OAuth2IdentityInterface) {
             $this->errorServer('OAuth2IdentityInterface not implemented');
         }

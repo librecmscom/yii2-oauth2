@@ -8,7 +8,6 @@
 namespace yuncms\oauth2;
 
 use yii\filters\auth\AuthMethod;
-use yuncms\oauth2\Exception;
 use yuncms\oauth2\models\AccessToken;
 
 
