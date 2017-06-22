@@ -5,7 +5,7 @@
  * @license https://github.com/borodulin/yii2-oauth-server/blob/master/LICENSE
  */
 
-namespace yuncms\oauth2\action;
+namespace yuncms\oauth2\actions;
 
 use Yii;
 use yii\base\Action;

@@ -68,11 +68,11 @@ class Client extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'client_id' => 'Unique client identifier',
-            'client_secret' => 'Client secret',
-            'redirect_uri' => 'Redirect URI used for Authorization Grant',
-            'grant_type' => 'Space-delimited list of grant types permitted, null = all',
-            'scope' => 'Space-delimited list of approved scopes',
+            'client_id' => Yii::t('oauth2', 'Unique client identifier'),
+            'client_secret' => Yii::t('oauth2', 'Client secret'),
+            'redirect_uri' => Yii::t('oauth2', 'Redirect URI used for Authorization Grant'),
+            'grant_type' => Yii::t('oauth2', 'Space-delimited list of grant types permitted, null = all'),
+            'scope' => Yii::t('oauth2', 'Space-delimited list of approved scopes'),
         ];
     }
 

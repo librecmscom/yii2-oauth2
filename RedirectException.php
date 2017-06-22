@@ -35,8 +35,6 @@ class RedirectException extends Exception
         if ($error_description) {
             $query['error_description'] = $error_description;
         }
-        $request = Yii::$app->request;
-
         if ($state) {
             $query['state'] = $state;
         }

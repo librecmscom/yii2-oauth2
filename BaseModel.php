@@ -2,10 +2,11 @@
 
 namespace yuncms\oauth2;
 
+use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yuncms\oauth2\models\Client;
 
-abstract class BaseModel extends \yii\base\Model
+abstract class BaseModel extends Model
 {
     protected $_client;
 
@@ -86,7 +87,7 @@ abstract class BaseModel extends \yii\base\Model
 
     /**
      *
-     * @return \conquer\oauth2\models\Client
+     * @return \yuncms\oauth2\models\Client
      */
     public function getClient()
     {
