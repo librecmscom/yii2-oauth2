@@ -5,10 +5,11 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace yuncms\oauth2;
+namespace yuncms\oauth2\filters\auth;
 
 use Yii;
 use yii\filters\auth\AuthMethod;
+use yuncms\oauth2\Exception;
 use yuncms\oauth2\models\AccessToken;
 
 /**
