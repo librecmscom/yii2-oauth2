@@ -5,7 +5,7 @@
  * @license https://github.com/borodulin/yii2-oauth2-server/blob/master/LICENSE
  */
 
-namespace conquer\oauth2\response\types;
+namespace yuncms\oauth2\response\types;
 
 use Yii;
 use yuncms\oauth2\BaseModel;

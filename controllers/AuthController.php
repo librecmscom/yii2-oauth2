@@ -62,7 +62,7 @@ class AuthController extends Controller
                 return $this->goBack();
             }
         } else {
-            return $this->render('authorize', [
+            return $this->renderPartial('authorize', [
                 'model' => $model,
             ]);
         }
@@ -82,7 +82,7 @@ class AuthController extends Controller
         if ($account->user instanceof Yii::$app->user->id) {
             if ($account->user->isBlocked) {
                 Yii::$app->session->setFlash('danger', Yii::t('user', 'Your account has been blocked.'));
-                $this->action->successUrl = Url::to(['/user/oauth2/authorize']);
+                $this->action->successUrl = Url::to(['/oauth2/auth/authorize']);
             } else {
                 Yii::$app->user->login($account->user, $this->module->rememberFor);
                 if ($this->isOauthRequest) {
@@ -90,7 +90,7 @@ class AuthController extends Controller
                 }
             }
         } else {
-            $this->action->successUrl = Url::to(['/user/oauth2/authorize']);
+            $this->action->successUrl = Url::to(['/oauth2/auth/authorize']);
         }
     }
 }

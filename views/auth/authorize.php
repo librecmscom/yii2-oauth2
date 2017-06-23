@@ -1,9 +1,47 @@
 <?php
+/* @var $this \yii\web\View */
+/* @var $content string */
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yuncms\user\widgets\Connect;
+use frontend\assets\AppAsset;
+use common\widgets\Alert;
 
+$asset = AppAsset::register($this);
+if (!empty($this->title)) {
+    $this->title .= ' - ' . $this->params['title'];
+} else {
+    $this->title = $this->params['title'];
+}
+$this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['keywords']]);
+$this->registerMetaTag(['name' => 'description', 'content' => $this->params['description']]);
+
+if (!Yii::$app->user->getIsGuest()) {
+    $this->registerMetaTag(['name' => 'user_id', 'content' => Yii::$app->user->getId()]);
+} else {
+    $this->registerMetaTag(['name' => 'user_id', 'content' => '']);
+}
+if ($this->params['analysisCode']) {
+    $this->registerJs($this->params['analysisCode']);
+}
 ?>
+<?php $this->beginPage() ?>
+    <!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= Html::csrfMetaTags() ?>
+        <?= Html::tag('title', Html::encode($this->title)); ?>
+        <?php $this->head() ?>
+    </head>
+<body>
+<?php $this->beginBody() ?>
+
 <?php $form = ActiveForm::begin([
     'id' => 'login-modal',
     'enableAjaxValidation' => true,
