@@ -4,11 +4,11 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\oauth2\controllers;
 
 use Yii;
 use yii\web\Response;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -74,9 +74,30 @@ class ClientController extends Controller
             return ActiveForm::validate($model);
         } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->getSession()->setFlash('success', Yii::t('oauth2', 'Successful operation'));
-            return $this->redirect(['view', 'client_id' => $model->client_id]);
+            return $this->redirect(['view', 'id' => $model->client_id]);
         } else {
             return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Creates a new Rest model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        } else if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('oauth2', 'Successful operation'));
+            return $this->redirect(['view', 'id' => $model->client_id]);
+        } else {
+            return $this->render('update', [
                 'model' => $model,
             ]);
         }
@@ -86,17 +107,32 @@ class ClientController extends Controller
      * Deletes an existing Rest model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      *
-     * @param integer $client_id
+     * @param integer $id
      * @return mixed
      */
-    public function actionDelete($client_id)
+    public function actionDelete($id)
     {
-        $model = $this->findModel($client_id);
+        $model = $this->findModel($id);
         if ($model->isAuthor()) {
             $model->delete();
             Yii::$app->getSession()->setFlash('success', Yii::t('oauth2', 'successfully deleted'));
         }
         return $this->redirect(['index']);
+    }
+
+    /**
+     * Creates a new Rest model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        $model = $this->findModel($id);
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+
     }
 
     /**
@@ -109,7 +145,7 @@ class ClientController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Client::findOne($id)) !== null) {
+        if (($model = Client::findOne(['client_id' => $id, 'user_id' => Yii::$app->user->id])) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException (Yii::t('oauth2', 'The requested page does not exist.'));

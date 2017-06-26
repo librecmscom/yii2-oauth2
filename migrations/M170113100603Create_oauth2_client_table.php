@@ -11,13 +11,13 @@ class M170113100603Create_oauth2_client_table extends Migration
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB  AUTO_INCREMENT=10000';
+            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB  AUTO_INCREMENT=100000';
         }
 
         $this->createTable('{{%oauth2_client}}', [
             'client_id' => $this->primaryKey(),
-            'client_secret' => $this->string(80)->notNull(),
-            'user_id' => $this->integer()->notNull(),
+            'client_secret' => $this->string(64),
+            'user_id' => $this->integer(),
             'redirect_uri' => $this->text()->notNull()->comment('回调URL'),
             'grant_type' => $this->text(),
             'scope' => $this->text(),
@@ -25,11 +25,12 @@ class M170113100603Create_oauth2_client_table extends Migration
             'domain' => $this->string()->comment('域名'),
             'provider' => $this->string()->comment('提供方'),
             'icp' => $this->string()->comment('ICP备案'),
-            'created_by' => $this->integer()->notNull(),
-            'updated_by' => $this->integer()->notNull(),
+            'registration_ip' => $this->string(),
             'created_at' => $this->integer()->comment('创建时间'),
             'updated_at' => $this->integer()->comment('更新时间'),
         ], $tableOptions);
+
+        $this->createIndex('{{%oauth2_client_unique}}', '{{%oauth2_client}}', ['client_id', 'client_secret'], true);
         $this->addforeignkey('fk_oauth2_client_user_id', '{{%oauth2_client}}', 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
     }
 

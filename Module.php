@@ -7,6 +7,7 @@
 
 namespace yuncms\oauth2;
 
+use Yii;
 use yii\base\BootstrapInterface;
 use yuncms\oauth2\console\Oauth2Controller;
 
@@ -28,6 +29,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => Oauth2Controller::className(),
             ];
         }
+        $this->registerTranslations();
     }
 
     /**
@@ -39,6 +41,21 @@ class Module extends \yii\base\Module implements BootstrapInterface
             return $this->behaviors;
         } else {
             return parent::behaviors();
+        }
+    }
+
+    /**
+     * 注册语言包
+     * @return void
+     */
+    public function registerTranslations()
+    {
+        if (!isset(Yii::$app->i18n->translations['oauth2*'])) {
+            Yii::$app->i18n->translations['oauth2*'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'sourceLanguage' => 'en-US',
+                'basePath' => __DIR__ . '/messages',
+            ];
         }
     }
 }

@@ -11,6 +11,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\web\Application as WebApplication;
 
 /**
  * This is the model class for table "oauth2_client".
@@ -21,7 +22,7 @@ use yii\behaviors\BlameableBehavior;
  * @property string $grant_type
  * @property string $scope
  * @property integer $user_id
- * @property string $public_key
+ * @property string $registration_ip
  *
  * @property AccessToken[] $accessTokens
  * @property AuthorizationCode[] $authorizationCodes
@@ -43,11 +44,11 @@ class Client extends ActiveRecord
     public function rules()
     {
         return [
-            [['client_id', 'client_secret', 'redirect_uri'], 'required'],
-            [['scope'], 'string'],
-            [['created_at', 'updated_at', 'created_by', 'updated_by'], 'integer'],
-            [['client_id', 'client_secret', 'grant_type'], 'string', 'max' => 80],
-            [['redirect_uri'], 'string', 'max' => 2000]
+            [['name', 'domain', 'provider', 'redirect_uri'], 'required'],
+            [['name', 'scope', 'provider', 'icp'], 'string'],
+            [['grant_type'], 'string', 'max' => 80],
+            [['redirect_uri'], 'string', 'max' => 2000],
+            [['created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -58,7 +59,12 @@ class Client extends ActiveRecord
     {
         return [
             TimestampBehavior::className(),
-            BlameableBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'user_id',
+                ],
+            ],
         ];
     }
 
@@ -68,12 +74,40 @@ class Client extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'client_id' => Yii::t('oauth2', 'Unique client identifier'),
-            'client_secret' => Yii::t('oauth2', 'Client secret'),
-            'redirect_uri' => Yii::t('oauth2', 'Redirect URI used for Authorization Grant'),
-            'grant_type' => Yii::t('oauth2', 'Space-delimited list of grant types permitted, null = all'),
-            'scope' => Yii::t('oauth2', 'Space-delimited list of approved scopes'),
+            'client_id' => Yii::t('oauth2', 'App Key'),
+            'client_secret' => Yii::t('oauth2', 'App Secret'),
+            'redirect_uri' => Yii::t('oauth2', 'Redirect URI'),
+            'grant_type' => Yii::t('oauth2', 'Grant type'),
+            'scope' => Yii::t('oauth2', 'Scope Authority'),
+            'name' => Yii::t('oauth2', 'App Name'),
+            'domain' => Yii::t('oauth2', 'App Domain'),
+            'provider' => Yii::t('oauth2', 'App Provider'),
+            'icp' => Yii::t('oauth2', 'ICP Beian'),
+            'created_at' => Yii::t('oauth2', 'Created At'),
+            'updated_at' => Yii::t('oauth2', 'Updated At'),
         ];
+    }
+
+    /**
+     * 生成 ClientKey
+     */
+    public function generateClientKey()
+    {
+        $this->client_secret = Yii::$app->security->generateRandomString();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if ($insert) {
+            $this->generateClientKey();
+            if (Yii::$app instanceof WebApplication) {
+                $this->registration_ip = Yii::$app->request->userIP;
+            }
+        }
+        return parent::beforeSave($insert);
     }
 
     /**

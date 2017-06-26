@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'grant_type',
                         'scope',
                         'created_at:datetime',
-                        'updated_at',
+                        'updated_at:datetime',
                         ['class' => 'yii\grid\ActionColumn'],
                     ],
                 ]);

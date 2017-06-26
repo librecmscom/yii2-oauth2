@@ -43,8 +43,8 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'login' => Yii::t('oauth', 'Login'),
-            'password' => Yii::t('oauth', 'Password'),
+            'login' => Yii::t('oauth2', 'Account'),
+            'password' => Yii::t('oauth2', 'Password'),
         ];
     }
 
@@ -60,7 +60,7 @@ class LoginForm extends Model
                 'password',
                 function ($attribute) {
                     if ($this->user === null || !Password::validate($this->password, $this->user->password_hash)) {
-                        $this->addError($attribute, Yii::t('oauth', 'Invalid login or password'));
+                        $this->addError($attribute, Yii::t('oauth2', 'Invalid login or password'));
                     }
                 }
             ],
@@ -70,10 +70,10 @@ class LoginForm extends Model
                     if ($this->user !== null) {
                         $confirmationRequired = $this->module->enableConfirmation && !$this->module->enableUnconfirmedLogin;
                         if ($confirmationRequired && !$this->user->getIsConfirmed()) {
-                            $this->addError($attribute, Yii::t('oauth', 'You need to confirm your email address.'));
+                            $this->addError($attribute, Yii::t('oauth2', 'You need to confirm your email address.'));
                         }
                         if ($this->user->getIsBlocked()) {
-                            $this->addError($attribute, Yii::t('oauth', 'Your account has been blocked.'));
+                            $this->addError($attribute, Yii::t('oauth2', 'Your account has been blocked.'));
                         }
                     }
                 }
