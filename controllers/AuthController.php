@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\oauth2\controllers;
 
 use Yii;
@@ -67,6 +68,15 @@ class AuthController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    /**
+     * callback
+     * @return string
+     */
+    public function actionCallback()
+    {
+        return '';
     }
 
     /**
