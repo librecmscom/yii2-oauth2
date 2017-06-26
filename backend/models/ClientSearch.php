@@ -18,7 +18,7 @@ class ClientSearch extends Client
     public function rules()
     {
         return [
-            [['client_id', 'user_id', 'created_at', 'updated_at'], 'integer'],
+            [['client_id', 'user_id'], 'integer'],
             [['client_secret', 'redirect_uri', 'grant_type', 'scope', 'name', 'domain', 'provider', 'icp', 'registration_ip'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class ClientSearch extends Client
      */
     public function search($params)
     {
-        $query = Client::find();
+        $query = Client::find()->orderBy(['client_id' => SORT_DESC]);
 
         // add conditions that should always apply here
 
@@ -60,9 +60,7 @@ class ClientSearch extends Client
         // grid filtering conditions
         $query->andFilterWhere([
             'client_id' => $this->client_id,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'user_id' => $this->user_id
         ]);
 
         $query->andFilterWhere(['like', 'client_secret', $this->client_secret])
