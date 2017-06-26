@@ -27,5 +27,8 @@
     "psr-4": {
       "yuncms\\oauth2\\": ""
     }
+  },
+  "extra": {
+    "bootstrap": "yuncms\\oauth2\\Bootstrap"
   }
 }

@@ -13,5 +13,5 @@ namespace yuncms\oauth2\backend;
  */
 class Module extends \yuncms\oauth2\Module
 {
-
+    public $controllerNamespace = 'yuncms\oauth2\backend\controllers';
 }

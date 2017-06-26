@@ -17,11 +17,17 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'All Type' => '全部类型',
     'App Key' => '',
     'App Secret' => '',
+    'Batch Deletion' => '批量删除',
+    'Create Client' => '创建App',
+    'Delete Client' => '删除App',
+    'Manage Client' => 'App管理',
+    'Operation' => '操作',
+    'Update Client' => 'App更新',
     'Access Token' => '访问令牌',
     'Account' => '账户',
+    'All Type' => '全部类型',
     'An unsupported grant type was requested' => '请求的授权类型不被支持',
     'An unsupported response type was requested.' => '请求的响应类型不被支持。',
     'App Domain' => 'App地址',
