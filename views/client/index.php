@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-md-10">
         <h2 class="h3 profile-title"><?= Yii::t('oauth2', 'Apps') ?>
             <div class="pull-right">
-                <a class="btn btn-primary" href="<?= Url::to(['create']) ?>"><?=Yii::t('oauth2', 'Create')?></a>
+                <a class="btn btn-primary" href="<?= Url::to(['create']) ?>"><?= Yii::t('oauth2', 'Create') ?></a>
             </div>
         </h2>
         <div class="row">
@@ -27,11 +27,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'layout' => "{items}\n{pager}",
                     'columns' => [
-                        'client_id',
-                        'client_secret',
-                        'redirect_uri',
-                        'grant_type',
-                        'scope',
+                        [
+                            'label' => Yii::t('oauth2', 'App Name'),
+                            'value' => function ($model) {
+                                return Html::a(Html::encode($model->name), ['/oauth2/client/view', 'id' => $model->client_id]);
+                            },
+                            'format' => 'html'
+                        ],
+                        'domain',
+                        'provider',
                         'created_at:datetime',
                         'updated_at:datetime',
                         ['class' => 'yii\grid\ActionColumn'],

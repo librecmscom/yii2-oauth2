@@ -17,17 +17,17 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'App Domain' => 'App地址',
+    'All Type' => '全部类型',
     'App Key' => '',
-    'App Provider' => '主办单位名称',
     'App Secret' => '',
-    'ICP Beian' => 'ICP备案',
     'Access Token' => '访问令牌',
     'Account' => '账户',
     'An unsupported grant type was requested' => '请求的授权类型不被支持',
     'An unsupported response type was requested.' => '请求的响应类型不被支持。',
+    'App Domain' => 'App地址',
     'App Manage' => 'App 管理',
     'App Name' => '应用名称',
+    'App Provider' => '主办单位名称',
     'Apps' => '应用列表',
     'Are you sure you want to delete this app?' => '你确定要删除该应用吗？',
     'Authorization Code' => '授权码',
@@ -39,6 +39,7 @@ return [
     'Delete' => '删除',
     'Expires' => '过期',
     'Grant type' => '授权类型',
+    'ICP Beian' => 'ICP备案',
     'Invalid login or password' => '账号或密码不正确',
     'Invalid or missing response type' => '无效的响应类型',
     'Invalid server state or the User Session has expired' => '会话已过期',

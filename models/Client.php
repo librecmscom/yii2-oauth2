@@ -46,8 +46,10 @@ class Client extends ActiveRecord
         return [
             [['name', 'domain', 'provider', 'redirect_uri'], 'required'],
             [['name', 'scope', 'provider', 'icp'], 'string'],
-            [['grant_type'], 'string', 'max' => 80],
-            [['redirect_uri'], 'string', 'max' => 2000],
+            [['grant_type'], 'string'],
+            [['grant_type'], 'default', 'value' => Null],
+            [['scope'], 'string'],
+            [['redirect_uri'], 'url'],
             [['created_at', 'updated_at'], 'integer'],
         ];
     }

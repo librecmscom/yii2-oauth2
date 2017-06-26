@@ -5,10 +5,10 @@
  */
 $this->title = Yii::t('oauth2', 'Update App: ') . ' ' . $model->name;
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('oauth2', 'Apps'),
+    'label' => Yii::t('oauth2', 'App Manage'),
     'url' => ['index']
 ];
-$this->params['breadcrumbs'][] = ['label' => $model->client_id, 'url' => ['view', 'id' => $model->client_id]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->client_id]];
 $this->params['breadcrumbs'][] = Yii::t('oauth2', 'Update');
 ?>
 <div class="row">

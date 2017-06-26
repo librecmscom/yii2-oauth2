@@ -18,6 +18,9 @@ use yii\bootstrap\ActiveForm;
 <?= $form->field($model, 'domain') ?>
 <?= $form->field($model, 'provider') ?>
 <?= $form->field($model, 'icp') ?>
+<?= $form->field($model, 'grant_type')->dropDownList(['authorization_code' => 'Authorization Code', 'password' => 'Password'],[
+    'prompt' => Yii::t('oauth2', 'All Type')
+]); ?>
 <?= $form->field($model, 'redirect_uri'); ?>
 
     <div class="form-group">

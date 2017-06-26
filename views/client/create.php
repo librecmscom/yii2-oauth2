@@ -4,7 +4,7 @@
  */
 $this->title = Yii::t('oauth2', 'Create App');
 $this->params['breadcrumbs'][] = [
-    'label' => Yii::t('oauth2', 'Apps'),
+    'label' => Yii::t('oauth2', 'App Manage'),
     'url' => ['index']
 ];
 $this->params['breadcrumbs'][] = $this->title;
