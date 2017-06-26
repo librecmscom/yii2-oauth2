@@ -20,7 +20,7 @@ use xutl\inspinia\ActiveForm;
 <?= $form->field($model, 'icp')->textInput(['maxlength' => true]) ?>
 <div class="hr-line-dashed"></div>
 
-<?= $form->field($model, 'redirect_uri')->textInput(['maxlength' => 6]) ?>
+<?= $form->field($model, 'redirect_uri')->textInput(['maxlength' => true]) ?>
 <div class="hr-line-dashed"></div>
 
 <?= $form->field($model, 'grant_type')->dropDownList(['authorization_code' => 'Authorization Code', 'password' => 'Password'], [

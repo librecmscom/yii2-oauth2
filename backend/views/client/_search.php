@@ -16,11 +16,23 @@ use xutl\inspinia\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'client_id') ?>
+    <?= $form->field($model, 'client_id', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('client_id'),
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'client_secret') ?>
+    <?= $form->field($model, 'client_secret', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('client_secret'),
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'user_id') ?>
+    <?= $form->field($model, 'user_id', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('user_id'),
+        ],
+    ]) ?>
 
     <?php // echo $form->field($model, 'redirect_uri') ?>
 
