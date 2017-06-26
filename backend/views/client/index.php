@@ -36,10 +36,10 @@ $this->registerJs("jQuery(\"#batch_deletion\").on(\"click\", function () {
                             'label' => Yii::t('oauth2', 'Manage Client'),
                             'url' => ['index'],
                         ],
-                        [
-                            'label' => Yii::t('oauth2', 'Create Client'),
-                            'url' => ['create'],
-                        ],
+//                        [
+//                            'label' => Yii::t('oauth2', 'Create Client'),
+//                            'url' => ['create'],
+//                        ],
                         [
                             'options' => ['id' => 'batch_deletion', 'class'=>'btn btn-sm btn-danger'],
                             'label' => Yii::t('oauth2', 'Batch Deletion'),

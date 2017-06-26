@@ -27,10 +27,10 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
                             'label' => Yii::t('oauth2', 'Manage Client'),
                             'url' => ['index'],
                         ],
-                        [
-                            'label' => Yii::t('oauth2', 'Create Client'),
-                            'url' => ['create'],
-                        ],
+//                        [
+//                            'label' => Yii::t('oauth2', 'Create Client'),
+//                            'url' => ['create'],
+//                        ],
                     ]]); ?>
                 </div>
                 <div class="col-sm-8 m-b-xs">
