@@ -29,6 +29,18 @@ $ yii migrate --migrationNamespace=@yuncms/oauth2/migrations
 
 ## Usage
 
+url:
+
+```bash
+http://yourname.com/oauth2/auth/authorize
+
+http://yourname.com/oauth2/auth/token
+
+refresh_token
+http://yourname.com/oauth2/auth/token
+```
+
+
 OAuth 2.0 Authorization usage 
 ```php
 namespace app\controllers;
