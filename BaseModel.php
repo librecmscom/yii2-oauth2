@@ -25,17 +25,17 @@ abstract class BaseModel extends Model
 
     /**
      * Access Token lifetime
-     * 1 hour by default
+     * 15 days by default
      * @var integer
      */
-    public $accessTokenLifetime = 3600;
+    public $accessTokenLifetime = 1296000;
 
     /**
      * Refresh Token lifetime
-     * 2 weeks by default
+     * 30 days by default
      * @var integer
      */
-    public $refreshTokenLifetime = 1209600;
+    public $refreshTokenLifetime = 2592000;
 
 
     public function init()

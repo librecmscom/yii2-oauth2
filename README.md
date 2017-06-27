@@ -30,7 +30,7 @@ $ yii migrate --migrationNamespace=@yuncms/oauth2/migrations
 ## Usage
 
 url:
-
+Application
 ```bash
 http://yourname.com/oauth2/auth/authorize
 
