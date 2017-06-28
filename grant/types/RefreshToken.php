@@ -81,7 +81,7 @@ class RefreshToken extends BaseModel
 
         return [
             'access_token' => $acessToken->access_token,
-            'expires_in' => $this->accessTokenLifetime,
+            'expires_in' => $this->accessTokenLifetime + time(),
             'token_type' => $this->tokenType,
             'scope' => $refreshToken->scope,
             'refresh_token' => $refreshToken->refresh_token,

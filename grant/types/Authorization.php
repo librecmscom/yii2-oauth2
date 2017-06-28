@@ -104,7 +104,7 @@ class Authorization extends BaseModel
 
         return [
             'access_token' => $acessToken->access_token,
-            'expires_in' => $this->accessTokenLifetime,
+            'expires_in' => $this->accessTokenLifetime + time(),
             'token_type' => $this->tokenType,
             'scope' => $this->scope,
             'refresh_token' => $refreshToken->refresh_token,

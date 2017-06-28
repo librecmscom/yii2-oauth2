@@ -96,9 +96,9 @@ class UserCredentials extends BaseModel
      */
     public function validatePassword($attribute, $params)
     {
-        if (! $this->hasErrors()) {
+        if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (! $user || ! $user->validatePassword($this->password)) {
+            if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, Yii::t('oauth2', 'Invalid username or password'));
             }
         }
@@ -127,7 +127,7 @@ class UserCredentials extends BaseModel
 
         return [
             'access_token' => $accessToken->access_token,
-            'expires_in' => $this->accessTokenLifetime,
+            'expires_in' => $this->accessTokenLifetime + time(),
             'token_type' => $this->tokenType,
             'scope' => $this->scope,
             'refresh_token' => $refreshToken->refresh_token,
@@ -145,7 +145,7 @@ class UserCredentials extends BaseModel
         $identityClass = Yii::$app->user->identityClass;
 
         $identityObject = Yii::createObject($identityClass);
-        if (! $identityObject instanceof OAuth2IdentityInterface) {
+        if (!$identityObject instanceof OAuth2IdentityInterface) {
             $this->errorServer(Yii::t('oauth2', 'OAuth2IdentityInterface not implemented'));
         }
 
