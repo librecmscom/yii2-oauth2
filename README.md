@@ -12,12 +12,12 @@ The preferred way to install this extension is through [composer](http://getcomp
 To install, either run
 
 ```
-$ php composer.phar require yuncms/oauth2 "*"
+$ php composer.phar require yuncms/oauth2 "~1.0"
 ```
 or add
 
 ```
-"yuncms/oauth2": "*"
+"yuncms/oauth2": "~1.0"
 ```
 
 to the ```require``` section of your `composer.json` file.

@@ -66,7 +66,7 @@ class Authorization extends BaseModel
         $authCode = AuthorizationCode::createAuthorizationCode([
             'client_id' => $this->client_id,
             'user_id' => Yii::$app->user->id,
-            'expires' => $this->authCodeLifetime + time(),
+            'expires' => $this->authCodeLifetime,
             'scope' => $this->scope,
             'redirect_uri' => $this->redirect_uri
         ]);

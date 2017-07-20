@@ -75,7 +75,7 @@ class Implicit extends BaseModel
         $accessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => Yii::$app->user->id,
-            'expires' => $this->accessTokenLifetime + time(),
+            'expires' => $this->accessTokenLifetime,
             'scope' => $this->scope,
         ]);
 
