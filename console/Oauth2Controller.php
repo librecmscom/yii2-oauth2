@@ -22,6 +22,9 @@ class Oauth2Controller extends Controller
 
     }
 
+    /**
+     * Clean up expired token
+     */
     public function actionClear()
     {
         AuthorizationCode::deleteAll(['<', 'expires', time()]);
