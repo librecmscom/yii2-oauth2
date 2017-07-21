@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = Yii::t('oauth2', 'Update');
 ?>
 <div class="row">
     <div class="col-md-2">
-        <?= $this->render('@yuncms/user/views/_profile_menu') ?>
+        <?= $this->render('@yuncms/user/frontend/views/_profile_menu') ?>
     </div>
     <div class="col-md-10">
         <h2 class="h3 profile-title"><?= Yii::t('oauth2', 'Update App: ') . ' ' . $model->name ?></h2>

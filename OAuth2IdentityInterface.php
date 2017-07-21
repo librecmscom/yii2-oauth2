@@ -17,11 +17,13 @@ use yii\web\IdentityInterface;
 interface OAuth2IdentityInterface
 {
     /**
-     * Find idenity by username
-     * @param string $username current username
-     * @return IdentityInterface
+     * Finds an identity by the given ID.
+     * @param string|int $id the ID to be looked for
+     * @return IdentityInterface the identity object that matches the given ID.
+     * Null should be returned if such an identity cannot be found
+     * or the identity is not in an active state (disabled, deleted, etc.)
      */
-    public static function findIdentityByUsername($username);
+    public static function findIdentity($id);
 
     /**
      * Validates password
