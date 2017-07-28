@@ -178,4 +178,5 @@ return [
 
 ## License
 
-**conquer/oauth2** is released under the MIT License. See the bundled `LICENSE` for details.
+Yii2-oauth2 is released under the MIT License. See the bundled [LICENSE.md](LICENSE.md)
+for details.
