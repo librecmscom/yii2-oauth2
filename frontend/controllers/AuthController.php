@@ -11,7 +11,7 @@ use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yuncms\user\models\Social;
-use yuncms\oauth2\models\LoginForm;
+use yuncms\oauth2\frontend\models\LoginForm;
 
 /**
  * Oauth2 登录控制器

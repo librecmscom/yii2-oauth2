@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-namespace yuncms\oauth2\models;
+namespace yuncms\oauth2\frontend\models;
 
 use Yii;
 use yii\base\Model;
