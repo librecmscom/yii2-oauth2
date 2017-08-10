@@ -150,7 +150,7 @@ class UserCredentials extends BaseModel
         }
 
         if ($this->_user === null) {
-            $this->_user = $identityClass::findIdentityByUsername($this->username);
+            $this->_user = $identityClass::findByEmailOrMobile($this->username);
         }
 
         return $this->_user;
