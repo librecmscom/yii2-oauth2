@@ -3,7 +3,7 @@
 /* @var $content string */
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yuncms\user\widgets\Connect;
+use yuncms\user\frontend\widgets\Connect;
 use yii\web\YiiAsset;
 use yii\bootstrap\BootstrapPluginAsset;
 
