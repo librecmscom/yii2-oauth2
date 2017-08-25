@@ -4,13 +4,13 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\oauth2\frontend\models;
 
 use Yii;
 use yii\base\Model;
-use yuncms\user\helpers\Password;
-use yuncms\user\ModuleTrait;
 use yuncms\user\models\User;
+use yuncms\user\helpers\Password;
 use yuncms\user\models\LoginHistory;
 
 /**
@@ -19,8 +19,6 @@ use yuncms\user\models\LoginHistory;
  */
 class LoginForm extends Model
 {
-    use ModuleTrait;
-
     /**
      * @var string User's email or username
      */
@@ -30,11 +28,22 @@ class LoginForm extends Model
      */
     public $password;
 
-
     /**
      * @var \yuncms\user\models\User
      */
     protected $user;
+
+    protected $rememberFor;
+    protected $enableUnconfirmedLogin;
+    protected $enableConfirmation;
+
+    public function init()
+    {
+        parent::init();
+        $this->rememberFor = Yii::$app->settings->get('rememberFor', 'user');
+        $this->enableConfirmation = Yii::$app->settings->get('enableConfirmation', 'user');
+        $this->enableUnconfirmedLogin = Yii::$app->settings->get('enableUnconfirmedLogin', 'user');
+    }
 
 
     /**
@@ -68,11 +77,11 @@ class LoginForm extends Model
                 'login',
                 function ($attribute) {
                     if ($this->user !== null) {
-                        $confirmationRequired = $this->module->enableConfirmation && !$this->module->enableUnconfirmedLogin;
-                        if ($confirmationRequired && !$this->user->getIsConfirmed()) {
+                        $confirmationRequired = $this->enableConfirmation && !$this->enableUnconfirmedLogin;
+                        if ($confirmationRequired && !$this->user->isEmailConfirmed) {
                             $this->addError($attribute, Yii::t('oauth2', 'You need to confirm your email address.'));
                         }
-                        if ($this->user->getIsBlocked()) {
+                        if ($this->user->isBlocked) {
                             $this->addError($attribute, Yii::t('oauth2', 'Your account has been blocked.'));
                         }
                     }
@@ -92,7 +101,7 @@ class LoginForm extends Model
             $loginHistory = new LoginHistory(['ip' => Yii::$app->request->getUserIP()]);
             $loginHistory->link('user', $this->user);
 
-            return Yii::$app->getUser()->login($this->user, $this->module->rememberFor);
+            return Yii::$app->getUser()->login($this->user, $this->rememberFor);
         } else {
             return false;
         }

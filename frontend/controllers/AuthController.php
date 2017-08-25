@@ -19,6 +19,9 @@ use yuncms\oauth2\frontend\models\LoginForm;
  */
 class AuthController extends Controller
 {
+
+    protected $rememberFor;
+
     public function behaviors()
     {
         return [
@@ -47,6 +50,12 @@ class AuthController extends Controller
                 'successCallback' => [$this, 'successCallback'],
             ],
         ];
+    }
+
+    public function init()
+    {
+        parent::init();
+        $this->rememberFor = Yii::$app->settings->get('rememberFor', 'user');
     }
 
     /**
@@ -95,7 +104,7 @@ class AuthController extends Controller
                 Yii::$app->session->setFlash('danger', Yii::t('oauth2', 'Your account has been blocked.'));
                 $this->action->successUrl = Url::to(['/oauth2/auth/authorize']);
             } else {
-                Yii::$app->user->login($account->user, $this->module->rememberFor);
+                Yii::$app->user->login($account->user, $this->rememberFor);
                 if ($this->isOauthRequest) {
                     $this->finishAuthorization();
                 }
