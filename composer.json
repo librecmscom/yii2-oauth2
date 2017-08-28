@@ -29,6 +29,9 @@
     }
   },
   "extra": {
-    "bootstrap": "yuncms\\oauth2\\Bootstrap"
+    "bootstrap": "yuncms\\oauth2\\Bootstrap",
+    "branch-alias": {
+      "dev-master": "2.0-dev"
+    }
   }
 }
