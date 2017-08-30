@@ -17,11 +17,7 @@ class Controller extends \yii\rest\Controller
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => 'yii\filters\auth\CompositeAuth',
-            'authMethods' => [
-                'yii\filters\auth\QueryParamAuth',
-                'yuncms\oauth2\filters\auth\TokenAuth',
-            ],
+            'class' => 'yuncms\oauth2\filters\auth\TokenAuth',
         ];
         return $behaviors;
     }

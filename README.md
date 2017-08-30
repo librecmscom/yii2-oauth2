@@ -1,5 +1,4 @@
-Yii2 OAuth 2.0 Server
-=================
+# Yii2 OAuth 2.0 Server
 
 ## Description
 
@@ -12,12 +11,12 @@ The preferred way to install this extension is through [composer](http://getcomp
 To install, either run
 
 ```
-$ php composer.phar require yuncms/oauth2 "~1.0"
+$ php composer.phar require yuncms/oauth2 "~2.0.0"
 ```
 or add
 
 ```
-"yuncms/oauth2": "~1.0"
+"yuncms/oauth2": "~2.0.0"
 ```
 
 to the ```require``` section of your `composer.json` file.
@@ -39,7 +38,6 @@ http://yourname.com/oauth2/auth/token
 refresh_token
 http://yourname.com/oauth2/auth/token
 ```
-
 
 OAuth 2.0 Authorization usage 
 ```php
@@ -70,7 +68,7 @@ class AuthController extends \yii\web\Controller
              * Returns an access token.
              */
             'token' => [
-                'class' => \conquer\oauth2\TokenAction::classname(),
+                'class' => \yuncms\oauth2\TokenAction::classname(),
             ],
             /**
              * OPTIONAL
@@ -138,7 +136,7 @@ class ApiController extends \yii\rest\Controller
              * Performs authorization by token
              */
             'tokenAuth' => [
-                'class' => \conquer\oauth2\TokenAuth::className(),
+                'class' => \yuncms\oauth2\TokenAuth::className(),
             ],
         ];
     }
@@ -175,6 +173,11 @@ return [
         ],
 ];
 ```
+
+## Thanks to
+
+* [Yii framework](https://github.com/yiisoft/yii2)
+* [yii2-oauth2-server](https://github.com/borodulin/yii2-oauth2-server)
 
 ## License
 

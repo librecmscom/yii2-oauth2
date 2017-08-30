@@ -19,6 +19,9 @@ use yuncms\oauth2\Exception;
 class Authorize extends ActionFilter
 {
 
+    /**
+     * @var string
+     */
     private $_responseType;
 
     public $responseTypes = [
@@ -32,8 +35,14 @@ class Authorize extends ActionFilter
      */
     public $allowImplicit = true;
 
+    /**
+     * @var string
+     */
     public $storeKey = 'ear6kme7or19rnfldtmwsxgzxsrmngqw';
 
+    /**
+     * 初始化
+     */
     public function init()
     {
         if (!$this->allowImplicit) {

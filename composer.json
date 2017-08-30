@@ -21,7 +21,8 @@
   ],
   "require": {
     "yiisoft/yii2": "~2.0.6",
-    "jakeasmith/http_build_url": "~1.0"
+    "jakeasmith/http_build_url": "~1.0",
+    "yuncms/yii2-user": "~2.0"
   },
   "autoload": {
     "psr-4": {
