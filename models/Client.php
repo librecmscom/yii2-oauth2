@@ -21,6 +21,10 @@ use yii\web\Application as WebApplication;
  * @property string $redirect_uri
  * @property string $grant_type
  * @property string $scope
+ * @property string $name
+ * @property string $domain
+ * @property string $provider
+ * @property string $icp
  * @property integer $user_id
  * @property string $registration_ip
  *

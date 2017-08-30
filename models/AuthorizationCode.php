@@ -11,6 +11,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\VarDumper;
 use yuncms\oauth2\Exception;
+use yuncms\user\models\User;
 
 /**
  * This is the model class for table "oauth_authorization_code".
@@ -23,7 +24,7 @@ use yuncms\oauth2\Exception;
  * @property string $scope
  *
  * @property Client $client
- * @property \yuncms\user\models\User $user
+ * @property User $user
  */
 class AuthorizationCode extends ActiveRecord
 {
@@ -98,6 +99,6 @@ class AuthorizationCode extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }

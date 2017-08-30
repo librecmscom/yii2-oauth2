@@ -11,6 +11,8 @@ use Yii;
 use yii\helpers\VarDumper;
 use yii\db\ActiveRecord;
 use yuncms\oauth2\Exception;
+use yuncms\user\models\User;
+
 /**
  * This is the model class for table "oauth_access_token".
  *
@@ -64,12 +66,11 @@ class AccessToken extends ActiveRecord
     /**
      * @param array $attributes
      * @throws Exception
-     * @return \yuncms\oauth2\models\AccessToken
+     * @return AccessToken
      */
     public static function createAccessToken(array $attributes)
     {
         static::deleteAll(['<', 'expires', time()]);
-
         $attributes['access_token'] = Yii::$app->security->generateRandomString(40);
         $accessToken = new static($attributes);
 

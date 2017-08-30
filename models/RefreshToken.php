@@ -7,7 +7,10 @@
 
 namespace yuncms\oauth2\models;
 
+use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 use yuncms\oauth2\Exception;
+use yuncms\user\models\User;
 
 /**
  * This is the model class for table "{{%oauth2_refresh_token}}".
@@ -21,7 +24,7 @@ use yuncms\oauth2\Exception;
  * @property Client $client
  * @property User $user
  */
-class RefreshToken extends \yii\db\ActiveRecord
+class RefreshToken extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -63,7 +66,7 @@ class RefreshToken extends \yii\db\ActiveRecord
      *
      * @param array $attributes
      * @throws Exception
-     * @return \conquer\oauth2\models\RefreshToken
+     * @return \yuncms\oauth2\models\RefreshToken
      */
     public static function createRefreshToken(array $attributes)
     {
@@ -93,6 +96,6 @@ class RefreshToken extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 }
