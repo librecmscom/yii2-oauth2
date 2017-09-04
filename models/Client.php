@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\web\Application as WebApplication;
+use yuncms\user\models\User;
 
 /**
  * This is the model class for table "oauth2_client".
@@ -31,6 +32,7 @@ use yii\web\Application as WebApplication;
  * @property AccessToken[] $accessTokens
  * @property AuthorizationCode[] $authorizationCodes
  * @property RefreshToken[] $refreshTokens
+ * @property User $user
  */
 class Client extends ActiveRecord
 {
@@ -122,6 +124,15 @@ class Client extends ActiveRecord
     public function getAccessTokens()
     {
         return $this->hasMany(AccessToken::className(), ['client_id' => 'client_id']);
+    }
+
+    /**
+     * User Relation
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
     }
 
     /**
