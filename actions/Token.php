@@ -20,7 +20,8 @@ use yuncms\oauth2\Exception;
  */
 class Token extends Action
 {
-    /** Format of response
+    /**
+     * Format of response
      * @var string
      */
     public $format = Response::FORMAT_JSON;
@@ -36,12 +37,19 @@ class Token extends Action
 //         'urn:ietf:params:oauth:grant-type:jwt-bearer' => 'yuncms\oauth2\grant\types\JwtBearer',
     ];
 
+    /**
+     * 初始化
+     */
     public function init()
     {
         Yii::$app->response->format = $this->format;
         $this->controller->enableCsrfValidation = false;
     }
 
+    /**
+     * run
+     * @throws Exception
+     */
     public function run()
     {
         if (!$grantType = BaseModel::getRequestValue('grant_type')) {
