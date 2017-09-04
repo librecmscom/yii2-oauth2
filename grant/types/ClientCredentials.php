@@ -79,14 +79,14 @@ class ClientCredentials extends BaseModel
         $accessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $identity->id,
-            'expires' => $this->accessTokenLifetime,
+            'expires' => $this->accessTokenLifetime + time(),
             'scope' => $this->scope,
         ]);
 
         $refreshToken = RefreshToken::createRefreshToken([
             'client_id' => $this->client_id,
             'user_id' => $identity->id,
-            'expires' => $this->refreshTokenLifetime,
+            'expires' => $this->refreshTokenLifetime + time(),
             'scope' => $this->scope,
         ]);
 

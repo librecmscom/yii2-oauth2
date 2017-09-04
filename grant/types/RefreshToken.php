@@ -68,7 +68,7 @@ class RefreshToken extends BaseModel
         $accessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $refreshToken->user_id,
-            'expires' => $this->accessTokenLifetime,
+            'expires' => $this->accessTokenLifetime + time(),
             'scope' => $refreshToken->scope,
         ]);
 
@@ -77,7 +77,7 @@ class RefreshToken extends BaseModel
         $refreshToken = \yuncms\oauth2\models\RefreshToken::createRefreshToken([
             'client_id' => $this->client_id,
             'user_id' => $refreshToken->user_id,
-            'expires' => $this->refreshTokenLifetime,
+            'expires' => $this->refreshTokenLifetime + time(),
             'scope' => $refreshToken->scope,
         ]);
 
