@@ -60,7 +60,7 @@ class ClientCredentials extends BaseModel
     {
         return [
             [['grant_type', 'client_id', 'client_secret'], 'required'],
-            ['grant_type', 'required', 'requiredValue' => 'password'],
+            ['grant_type', 'required', 'requiredValue' => 'client_credentials'],
             [['client_id'], 'string', 'max' => 80],
             [['client_id'], 'validateClient_id'],
             [['client_secret'], 'validateClient_secret'],
