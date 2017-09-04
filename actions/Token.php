@@ -25,6 +25,9 @@ class Token extends Action
      */
     public $format = Response::FORMAT_JSON;
 
+    /**
+     * @var array Grant Types
+     */
     public $grantTypes = [
         'authorization_code' => 'yuncms\oauth2\grant\types\Authorization',
         'refresh_token' => 'yuncms\oauth2\grant\types\RefreshToken',
