@@ -86,14 +86,14 @@ class Authorization extends BaseModel
         $acessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $authCode->user_id,
-            'expires' => $this->accessTokenLifetime + time(),
+            'expires' => $this->accessTokenLifetime,
             'scope' => $authCode->scope,
         ]);
 
         $refreshToken = RefreshToken::createRefreshToken([
             'client_id' => $this->client_id,
             'user_id' => $authCode->user_id,
-            'expires' => $this->refreshTokenLifetime + time(),
+            'expires' => $this->refreshTokenLifetime,
             'scope' => $authCode->scope,
         ]);
         /**
@@ -104,7 +104,7 @@ class Authorization extends BaseModel
 
         return [
             'access_token' => $acessToken->access_token,
-            'expires_in' => $this->accessTokenLifetime + time(),
+            'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $this->scope,
             'refresh_token' => $refreshToken->refresh_token,

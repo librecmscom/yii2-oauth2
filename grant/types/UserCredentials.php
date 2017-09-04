@@ -114,20 +114,20 @@ class UserCredentials extends BaseModel
         $accessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $identity->id,
-            'expires' => $this->accessTokenLifetime + time(),
+            'expires' => $this->accessTokenLifetime,
             'scope' => $this->scope,
         ]);
 
         $refreshToken = RefreshToken::createRefreshToken([
             'client_id' => $this->client_id,
             'user_id' => $identity->id,
-            'expires' => $this->refreshTokenLifetime + time(),
+            'expires' => $this->refreshTokenLifetime,
             'scope' => $this->scope,
         ]);
 
         return [
             'access_token' => $accessToken->access_token,
-            'expires_in' => $this->accessTokenLifetime + time(),
+            'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $this->scope,
             'refresh_token' => $refreshToken->refresh_token,
