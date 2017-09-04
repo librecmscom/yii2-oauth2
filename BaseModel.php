@@ -2,12 +2,20 @@
 
 namespace yuncms\oauth2;
 
+use Yii;
 use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yuncms\oauth2\models\Client;
 
+/**
+ * Class BaseModel
+ * @package yuncms\oauth2
+ */
 abstract class BaseModel extends Model
 {
+    /**
+     * @var Client
+     */
     protected $_client;
 
     /**
@@ -76,7 +84,7 @@ abstract class BaseModel extends Model
     {
         static $request;
         if (is_null($request)) {
-            $request = \Yii::$app->request;
+            $request = Yii::$app->request;
         }
         if ($header && ($result = $request->headers->get($header))) {
             return $result;
@@ -109,7 +117,7 @@ abstract class BaseModel extends Model
 
     public function validateClient_secret($attribute, $params)
     {
-        if (!\Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
+        if (!Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
             $this->addError($attribute, 'The client credentials are invalid', Exception::UNAUTHORIZED_CLIENT);
         }
     }
@@ -126,7 +134,7 @@ abstract class BaseModel extends Model
 
     public function validateScope($attribute, $params)
     {
-        if (!$this->checkSets($this->$attribute, $this->client->scope)) {
+        if (!$this->checkSets($this->$attribute, $this->_client->scope)) {
             $this->errorRedirect('The requested scope is invalid, unknown, or malformed.', Exception::INVALID_SCOPE);
         }
     }

@@ -109,6 +109,7 @@ class UserCredentials extends BaseModel
      */
     public function getResponseData()
     {
+        /** @var \yuncms\user\models\User $identity */
         $identity = $this->getUser();
 
         $accessToken = AccessToken::createAccessToken([
@@ -137,7 +138,7 @@ class UserCredentials extends BaseModel
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return \yuncms\user\models\User|null
      */
     protected function getUser()
     {
@@ -148,11 +149,9 @@ class UserCredentials extends BaseModel
         if (!$identityObject instanceof OAuth2IdentityInterface) {
             $this->errorServer(Yii::t('oauth2', 'OAuth2IdentityInterface not implemented'));
         }
-
         if ($this->_user === null) {
             $this->_user = $identityClass::findByEmailOrMobile($this->username);
         }
-
         return $this->_user;
     }
 }

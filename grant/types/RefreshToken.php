@@ -61,9 +61,11 @@ class RefreshToken extends BaseModel
 
     public function getResponseData()
     {
+        /** @var  \yuncms\oauth2\models\RefreshToken $refreshToken */
         $refreshToken = $this->getRefreshToken();
 
-        $acessToken = AccessToken::createAccessToken([
+        /** @var AccessToken $accessToken */
+        $accessToken = AccessToken::createAccessToken([
             'client_id' => $this->client_id,
             'user_id' => $refreshToken->user_id,
             'expires' => $this->accessTokenLifetime,
@@ -80,7 +82,7 @@ class RefreshToken extends BaseModel
         ]);
 
         return [
-            'access_token' => $acessToken->access_token,
+            'access_token' => $accessToken->access_token,
             'expires_in' => $this->accessTokenLifetime,
             'token_type' => $this->tokenType,
             'scope' => $refreshToken->scope,
