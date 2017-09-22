@@ -20,7 +20,7 @@ use yuncms\user\models\LoginHistory;
 class LoginForm extends Model
 {
     /**
-     * @var string User's email or username
+     * @var string User's email or mobile
      */
     public $login;
     /**
