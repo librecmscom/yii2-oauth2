@@ -30,6 +30,20 @@
     }
   },
   "extra": {
+    "yuncms": {
+      "name": "oauth2",
+      "i18n": {
+        "class": "yii\\i18n\\PhpMessageSource",
+        "basePath": "@yuncms/oauth2/message"
+      },
+      "migrationNamespace": "@yuncms/oauth2/migrations",
+      "backend": {
+        "class": "yuncms\\oauth2\\backend\\Module"
+      },
+      "frontend": {
+        "class": "yuncms\\oauth2\\frontend\\Module"
+      }
+    },
     "bootstrap": "yuncms\\oauth2\\Bootstrap",
     "branch-alias": {
       "dev-master": "2.0-dev"
