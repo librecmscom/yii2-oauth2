@@ -34,6 +34,7 @@
       "name": "oauth2",
       "i18n": {
         "class": "yii\\i18n\\PhpMessageSource",
+        "sourceLanguage": "en-US",
         "basePath": "@yuncms/oauth2/message"
       },
       "migrationNamespace": "yuncms\\oauth2\\migrations",
