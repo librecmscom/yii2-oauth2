@@ -17,7 +17,7 @@ class M170113100603Create_oauth2_client_table extends Migration
         $this->createTable('{{%oauth2_client}}', [
             'client_id' => $this->primaryKey(),
             'client_secret' => $this->string(64),
-            'user_id' => $this->integer(),
+            'user_id' => $this->integer()->unsigned(),
             'redirect_uri' => $this->text()->notNull()->comment('回调URL'),
             'grant_type' => $this->text(),
             'scope' => $this->text(),
