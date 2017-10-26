@@ -118,7 +118,7 @@ abstract class BaseModel extends Model
     public function validateClient_secret($attribute, $params)
     {
         if (!Yii::$app->security->compareString($this->getClient()->client_secret, $this->$attribute)) {
-            $this->addError($attribute, 'The client credentials are invalid', Exception::UNAUTHORIZED_CLIENT);
+            $this->addError($attribute, 'The client credentials are invalid');
         }
     }
 

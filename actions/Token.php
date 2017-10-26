@@ -34,6 +34,7 @@ class Token extends Action
         'refresh_token' => 'yuncms\oauth2\grant\types\RefreshToken',
         'client_credentials' => 'yuncms\oauth2\grant\types\ClientCredentials',
         'password' => 'yuncms\oauth2\grant\types\UserCredentials',
+        'wechat' => 'yuncms\oauth2\grant\types\WechatCredentials',
 //         'urn:ietf:params:oauth:grant-type:jwt-bearer' => 'yuncms\oauth2\grant\types\JwtBearer',
     ];
 
