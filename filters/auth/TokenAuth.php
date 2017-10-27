@@ -9,7 +9,7 @@ namespace yuncms\oauth2\filters\auth;
 
 use Yii;
 use yii\filters\auth\AuthMethod;
-use yuncms\oauth2\Exception;
+use yii\web\UnauthorizedHttpException;
 use yuncms\oauth2\models\AccessToken;
 
 /**
@@ -57,7 +57,7 @@ class TokenAuth extends AuthMethod
         $identity = $identityClass::findIdentity($accessToken->user_id);
 
         if (empty($identity)) {
-            throw new Exception(Yii::t('oauth2', 'User is not found.'), Exception::ACCESS_DENIED);
+            throw new UnauthorizedHttpException(Yii::t('oauth2', 'User is not found.'));
         }
 
         $user->setIdentity($identity);
@@ -75,17 +75,19 @@ class TokenAuth extends AuthMethod
     }
 
     /**
-     * @inheritdoc
+     * 处理失败返回401
+     * @param \yii\web\Response $response
+     * @throws UnauthorizedHttpException
      */
     public function handleFailure($response)
     {
-        throw new Exception(Yii::t('oauth2', 'You are requesting with an invalid credential.'));
+        throw new UnauthorizedHttpException(Yii::t('oauth2', 'You are requesting with an invalid credential.'));
     }
 
     /**
-     *
-     * @throws Exception
-     * @return \yuncms\oauth2\models\AccessToken
+     * 处理认证
+     * @return null|static
+     * @throws UnauthorizedHttpException
      */
     protected function getAccessToken()
     {
@@ -100,26 +102,26 @@ class TokenAuth extends AuthMethod
             // Check that exactly one method was used
             $methodsCount = isset($authHeader) + isset($postToken) + isset($getToken);
             if ($methodsCount > 1) {
-                throw new Exception(Yii::t('oauth2', 'Only one method may be used to authenticate at a time (Auth header, POST or GET).'));
+                throw new UnauthorizedHttpException(Yii::t('oauth2', 'Only one method may be used to authenticate at a time (Auth header, POST or GET).'));
             } elseif ($methodsCount == 0) {
-                throw new Exception(Yii::t('oauth2', 'The access token was not found.'));
+                throw new UnauthorizedHttpException(Yii::t('oauth2', 'The access token was not found.'));
             }
             // HEADER: Get the access token from the header
             if ($authHeader) {
                 if (preg_match("/^Bearer\\s+(.*?)$/", $authHeader, $matches)) {
                     $token = $matches[1];
                 } else {
-                    throw new Exception(Yii::t('oauth2', 'Malformed auth header.'));
+                    throw new UnauthorizedHttpException(Yii::t('oauth2', 'Malformed auth header.'));
                 }
             } else {
                 // POST: Get the token from POST data
                 if ($postToken) {
                     if (!$request->isPost) {
-                        throw new Exception(Yii::t('oauth2', 'When putting the token in the body, the method must be POST.'));
+                        throw new UnauthorizedHttpException(Yii::t('oauth2', 'When putting the token in the body, the method must be POST.'));
                     }
                     // IETF specifies content-type. NB: Not all webservers populate this _SERVER variable
                     if ($request->contentType != 'application/x-www-form-urlencoded') {
-                        throw new Exception(Yii::t('oauth2', 'The content type for POST requests must be "application/x-www-form-urlencoded"'));
+                        throw new UnauthorizedHttpException(Yii::t('oauth2', 'The content type for POST requests must be "application/x-www-form-urlencoded"'));
                     }
                     $token = $postToken;
                 } else {
@@ -128,10 +130,10 @@ class TokenAuth extends AuthMethod
             }
 
             if (!$accessToken = AccessToken::findOne(['access_token' => $token])) {
-                throw new Exception(Yii::t('oauth2', 'The access token provided is invalid.'), Exception::INVALID_GRANT);
+                throw new UnauthorizedHttpException(Yii::t('oauth2', 'The access token provided is invalid.'));
             }
             if ($accessToken->expires < time()) {
-                throw new Exception(Yii::t('oauth2', 'The access token provided has expired.'), Exception::INVALID_GRANT);
+                throw new UnauthorizedHttpException(Yii::t('oauth2', 'The access token provided has expired.'));
             }
             $this->_accessToken = $accessToken;
         }
