@@ -142,7 +142,7 @@ class WechatCredentials extends BaseModel
             $client = $this->wechat->oauth;
             $client->validateAuthState = false;
             $token = $client->fetchAccessToken($this->code);
-            if($token){
+            if ($token) {
 
             }
             $tokenParams = $token->getParams();
@@ -156,7 +156,11 @@ class WechatCredentials extends BaseModel
             if ($account->user instanceof $identityClass) {
                 $this->_user = $account->user;
             } else {
-                $nickname = '微信' . $account->nickname;
+                $nickname = $account->nickname;
+                if (mb_strlen($nickname) < 3) {
+                    $nickname = $nickname . '本尊';
+                }
+
                 // generate nickname like "user1", "user2", etc...
                 while (!$this->validate(['username'])) {
                     $row = (new Query())->from('{{%user}}')->select('MAX(id) as id')->one();
