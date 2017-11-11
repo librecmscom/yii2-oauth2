@@ -160,17 +160,19 @@ class WechatCredentials extends BaseModel
                 if (mb_strlen($nickname) < 3) {
                     $nickname = $nickname . '大佬';
                 }
-                // generate nickname like "user1", "user2", etc...
-                while (!$this->validate(['nickname'])) {
-                    $row = (new Query())->from('{{%user}}')->select('MAX(id) as id')->one();
-                    $nickname = $account->nickname . ++$row['id'];
-                }
                 /** @var \yuncms\user\models\User $user */
                 $user = Yii::createObject([
                     'class' => $identityClass,
                     'scenario' => $identityClass::SCENARIO_CREATE_MOBILE_WECHAT,
                     'nickname' => $nickname,
                 ]);
+
+                // generate nickname like "user1", "user2", etc...
+                while (!$user->validate(['nickname'])) {
+                    $row = (new Query())->from('{{%user}}')->select('MAX(id) as id')->one();
+                    $user->nickname = $account->nickname . ++$row['id'];
+                }
+
                 if ($user->create()) {
                     $account->connect($user);
                 }
