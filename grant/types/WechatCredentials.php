@@ -142,10 +142,10 @@ class WechatCredentials extends BaseModel
             $client = $this->wechat->oauth;
             $client->validateAuthState = false;
             $token = $client->fetchAccessToken($this->code);
-            if ($token) {
-
-            }
             $tokenParams = $token->getParams();
+            if ($tokenParams['errcode']) {
+                throw new ServerErrorHttpException($tokenParams['errmsg'], $tokenParams['errcode']);
+            }
 
             if (($account = Wechat::find()->where([
                     'unionid' => $tokenParams['unionid'],
@@ -158,11 +158,10 @@ class WechatCredentials extends BaseModel
             } else {
                 $nickname = $account->nickname;
                 if (mb_strlen($nickname) < 3) {
-                    $nickname = $nickname . '本尊';
+                    $nickname = $nickname . '大佬';
                 }
-
                 // generate nickname like "user1", "user2", etc...
-                while (!$this->validate(['username'])) {
+                while (!$this->validate(['nickname'])) {
                     $row = (new Query())->from('{{%user}}')->select('MAX(id) as id')->one();
                     $nickname = $account->nickname . ++$row['id'];
                 }
